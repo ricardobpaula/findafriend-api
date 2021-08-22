@@ -1,9 +1,10 @@
+import Email from "../email";
+
 export default interface UserProps {
-    id?: number
     firstName: string
     lastName: string
     phone: string
-    email: string
+    email: Email
     password: string
     role: 'admin'|'commun'
 }

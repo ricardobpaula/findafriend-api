@@ -1,17 +1,15 @@
-import UserProps from "./interfaces/UserProps"
+import InvalidEmailError from "./errors/InvalidEmailError"
 
-export default class User {
-    
-    user: UserProps
+export default class Email {
+    readonly email: string
 
-    constructor(user: UserProps){
+    constructor(email: string){
         
-        if(!this.validateEmail(user.email)){
-            throw new Error('Invalid e-mail')
+        if(!this.validateEmail(email)){
+            throw new InvalidEmailError(email)
         }
 
-        this.user = user
-
+        this.email = email
     }
 
     private validateEmail(email: string): boolean{
@@ -19,5 +17,4 @@ export default class User {
     
         return tester.test(email)
     }
-   
 }
