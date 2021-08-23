@@ -1,11 +1,10 @@
 import BcryptAdapter from '../src/adapters/cryptography/BcryptAdapter'
 
 test('Hash password', async () => {
-    const password1 = '123456'
-    const password2 = '123456'
+    const password = '123456'
     const bcryptAdapter = new BcryptAdapter()
 
-    const hashedPass1 = await bcryptAdapter.getHashed(password1)
+    const hashedPass = await bcryptAdapter.getHashed(password)
 
-    expect(await bcryptAdapter.compare(password2,hashedPass1)).toBeTruthy()
+    expect(await bcryptAdapter.compare(password,hashedPass)).toBeTruthy()
 })

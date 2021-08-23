@@ -11,7 +11,7 @@ const phone = new Phone('11999998888')
 const password = new Password('1234567')
 const role = 'commun'
 
-test('Create a new user', async ()=>{
+test.skip('Create a new user', async ()=>{
     const userRepositoryInMemory = new UserRepositoryInMemory()
     const createUser = new CreateUser(userRepositoryInMemory)
     const user = await createUser.execute({

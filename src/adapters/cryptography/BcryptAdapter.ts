@@ -9,7 +9,6 @@ export default class BcryptAdapter implements Cryptography{
         return await bcrypt.hash(text,8)
     }
     async compare(textToCompare: string, textHashed: string): Promise<boolean> {
-        console.log(await bcrypt.compare(textToCompare,textHashed))
         return await bcrypt.compare(textToCompare,textHashed)
     }
     
