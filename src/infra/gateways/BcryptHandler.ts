@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs'
 
-import Cryptography from '../../domain/infra/gateways/cryptography'
+import Cryptography from '../../domain/infra/gateways/Cryptography'
 
-export default class BcryptAdapter implements Cryptography{
+export default class BcryptHandler implements Cryptography{
     constructor(){}
     
     async getHashed(text: string): Promise<string> {

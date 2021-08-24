@@ -1,6 +1,6 @@
-import Email from "../entities/email";
+import Email from "../entities/Email";
 import UserProps from "../entities/interfaces/UserProps";
-import User from "../entities/user";
+import User from "../entities/User";
 
 export default interface UserRepository {
     createUser(user: UserProps): Promise<User>

@@ -1,6 +1,6 @@
-import Email from "../../../src/modules/accounts/entities/email"
-import Password from "../../../src/modules/accounts/entities/password"
-import Phone from "../../../src/modules/accounts/entities/phone"
+import Email from "../../../src/modules/accounts/entities/Email"
+import Password from "../../../src/modules/accounts/entities/Password"
+import Phone from "../../../src/modules/accounts/entities/Phone"
 import UserRepositoryInMemory from "../../../src/modules/accounts/repositories/in-memory/UserRepositoryInMemory"
 import CreateUser from "../../../src/modules/accounts/usecases/CreateUser"
 

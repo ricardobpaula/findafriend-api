@@ -1,5 +1,5 @@
 import UserProps from "../entities/interfaces/UserProps";
-import User from "../entities/user";
+import User from "../entities/User";
 import UserRepository from "../repositories/UserRepository";
 
 export default class CreateUser {
