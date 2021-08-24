@@ -1,4 +1,4 @@
-import BcryptAdapter from '../src/adapters/cryptography/BcryptAdapter'
+import BcryptAdapter from '../src/infra/gateways/bcrypt'
 
 test('Hash password', async () => {
     const password = '123456'

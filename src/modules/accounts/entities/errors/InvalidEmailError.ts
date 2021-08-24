@@ -1,4 +1,4 @@
-import DomainError from '../../../../domain/errors/DomainError'
+import DomainError from '../../../../domain/entities/errors/DomainError'
 
 export default class InvalidEmailError extends Error implements DomainError{
     constructor(email: string) {
