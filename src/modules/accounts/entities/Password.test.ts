@@ -10,14 +10,14 @@ describe('Password value', () => {
         expect(password).toBeInstanceOf(Password)
     })
 
-    it('shoud reject password with less than 6 characters', () => {
+    it('should reject password with less than 6 characters', () => {
        const error = () => {
             new Password('123')
        } 
         expect(error).toThrowError(InvalidPasswordError)
     })
 
-    it('shoud reject password with more than 255 characters', () => {
+    it('should reject password with more than 255 characters', () => {
         const error = () => {
              new Password('1'.repeat(256))
         } 
