@@ -16,7 +16,6 @@ export default class implements UserRepository {
     async createUser(user: UserProps): Promise<User> {
         const newUser = new User(user,this.itens.length+1)
         this.itens.push(newUser)
-        console.log('teste')
         return newUser
     }
 
