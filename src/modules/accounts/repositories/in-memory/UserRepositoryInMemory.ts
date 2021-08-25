@@ -4,14 +4,19 @@ import User from "../../entities/User";
 import UserRepository from "../UserRepository";
 
 export default class implements UserRepository {
-    constructor(public itens: User[] = []){}
+    private itens: Array<User>
+
+    constructor(){
+        this.itens = []
+    }
     async findByEmail(email: Email): Promise<User> {
-        return this.itens.find(item=>{item.props.email===email})
+        return this.itens.find(item=>item.props.email===email)
     }
 
     async createUser(user: UserProps): Promise<User> {
         const newUser = new User(user,this.itens.length+1)
         this.itens.push(newUser)
+        console.log('teste')
         return newUser
     }
 

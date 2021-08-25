@@ -1,6 +1,7 @@
 import UserProps from "../entities/interfaces/UserProps";
 import User from "../entities/User";
 import UserRepository from "../repositories/UserRepository";
+import EmailAlreadyUsed from "./errors/EmailAlreadyUsed";
 
 export default class CreateUser {
     userRepository: UserRepository
@@ -12,9 +13,9 @@ export default class CreateUser {
     async execute(userRequest: UserProps):Promise<User>{
         
         const userAlreadyExists = await this.userRepository.findByEmail(userRequest.email)
-
+        
         if(userAlreadyExists){
-            throw new Error('User already exists')
+            throw new EmailAlreadyUsed(userRequest.email.email)
         }
 
         const user = await this.userRepository.createUser(userRequest)
