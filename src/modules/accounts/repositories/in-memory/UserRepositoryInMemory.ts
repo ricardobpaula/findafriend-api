@@ -1,7 +1,6 @@
-import Email from "../../entities/Email";
-import UserProps from "../../entities/interfaces/UserProps";
-import User from "../../entities/User";
-import UserRepository from "../UserRepository";
+import UserProps from "../../entities/interfaces/UserProps"
+import User from "../../entities/User"
+import UserRepository from "../UserRepository"
 
 export default class implements UserRepository {
     private itens: Array<User>

@@ -1,7 +1,7 @@
-import UserProps from "../../entities/interfaces/UserProps";
-import User from "../../entities/User";
-import UserRepository from "../../repositories/UserRepository";
-import EmailAlreadyUsed from "./errors/EmailAlreadyUsed";
+import UserProps from "../../entities/interfaces/UserProps"
+import User from "../../entities/User"
+import UserRepository from "../../repositories/UserRepository"
+import EmailAlreadyUsed from "./errors/EmailAlreadyUsed"
 
 export default class CreateUser {
     userRepository: UserRepository
