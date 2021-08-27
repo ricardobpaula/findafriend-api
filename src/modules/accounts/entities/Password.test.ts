@@ -1,5 +1,5 @@
 import Password from './Password'
-import BcryptHandler from '../../../infra/gateways/BcryptHandler'
+import BcryptHandler from '../../../infra/gateways/BcryptAdapter'
 import InvalidPasswordError from './errors/InvalidPasswordError'
 
 const bcryptHandler = new BcryptHandler()

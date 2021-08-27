@@ -4,5 +4,5 @@ import User from "../entities/User";
 
 export default interface UserRepository {
     createUser(user: UserProps): Promise<User>
-    findByEmail(email:Email): Promise<User>
+    findByEmail(email:string): Promise<User>
 }

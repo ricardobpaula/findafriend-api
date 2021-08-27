@@ -1,7 +1,7 @@
 import InvalidEmailError from "./errors/InvalidEmailError"
 
 export default class Email {
-    readonly email: string
+    private readonly email: string
 
     constructor(email: string){
         
@@ -10,6 +10,10 @@ export default class Email {
         }
 
         this.email = email
+    }
+
+    get():string{
+        return this.email
     }
 
     private validateEmail(email: string): boolean{

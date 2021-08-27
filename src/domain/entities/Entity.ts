@@ -6,4 +6,8 @@ export default abstract class Entity<T>{
         this.id = id
         this.props = props
     }
+
+    getIdString(): string {
+     return this.id.toString()   
+    }
 }

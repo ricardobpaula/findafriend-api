@@ -1,5 +1,5 @@
 import UserRepositoryInMemory from "../repositories/in-memory/UserRepositoryInMemory"
-import CreateUser from "../usecases/CreateUser"
+import CreateUser from "../usecases/CreateUser/CreateUser"
 
 import Email from "./Email"
 import Password from "./Password"
