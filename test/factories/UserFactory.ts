@@ -1,10 +1,9 @@
-import Email from "../../src/modules/accounts/entities/Email";
-import Password from "../../src/modules/accounts/entities/Password";
-import Phone from "../../src/modules/accounts/entities/Phone";
-import User from "../../src/modules/accounts/entities/User";
-import UserRepositoryInMemory from "../../src/modules/accounts/repositories/in-memory/UserRepositoryInMemory";
-import UserRepository from "../../src/modules/accounts/repositories/UserRepository";
-import CreateUser from "../../src/modules/accounts/usecases/CreateUser/CreateUser";
+import Email from "../../src/modules/accounts/entities/Email"
+import Password from "../../src/modules/accounts/entities/Password"
+import Phone from "../../src/modules/accounts/entities/Phone"
+import User from "../../src/modules/accounts/entities/User"
+import UserRepository from "../../src/modules/accounts/repositories/UserRepository"
+import CreateUser from "../../src/modules/accounts/usecases/CreateUser/CreateUser"
 
 export default class UserFactory {
     private readonly userRepository: UserRepository
