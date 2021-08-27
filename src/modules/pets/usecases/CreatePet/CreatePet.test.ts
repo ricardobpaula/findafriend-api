@@ -37,7 +37,6 @@ describe('Usecase to create a new pet', () => {
             description,
             port
         })
-        console.log(pet)
         expect(pet.props.description).toBe(description)
     })
 })
