@@ -14,5 +14,8 @@ export default class PetRepositoryInMemory implements PetRepository {
         this.itens.push(pet)
         return pet
     }
-
+    
+    async findAll(): Promise<Pet[]> {
+        return this.itens
+    }
 }

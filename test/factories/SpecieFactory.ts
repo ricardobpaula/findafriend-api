@@ -1,16 +1,14 @@
 import Specie from "../../src/modules/pets/entities/Specie"
 import SpecieRepository from "../../src/modules/pets/repositories/SpecieRepository"
 
-export default class SpecieFactorys {
+export default class SpecieFactory {
     private readonly specieRepository: SpecieRepository
-    private readonly name: string
 
     constructor(specieRepository: SpecieRepository){
         this.specieRepository = specieRepository
-        this.name = 'dog'
     }
 
-    async execute():Promise<Specie> {
-        return await this.specieRepository.createSpecie({name: this.name})
+    async execute(name?: string, ):Promise<Specie> {
+        return await this.specieRepository.createSpecie({name})
     }
 }

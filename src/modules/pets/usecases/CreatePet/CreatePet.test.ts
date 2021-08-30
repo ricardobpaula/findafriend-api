@@ -25,7 +25,7 @@ describe('Usecase to create a new pet', () => {
         userFactory = new UserFactory(userRepositoryInMemory)
         specieFactory = new SpecieFactory(specieRepositoryInMemory)
         owner = await userFactory.execute()
-        specie = await specieFactory.execute()
+        specie = await specieFactory.execute('dog')
     })
 
     it('should be created a new pet', async()=>{
