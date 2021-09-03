@@ -1,6 +1,6 @@
-import TokenAccess from "../../../../domain/infra/gateways/TokenAccess";
-import UserRepository from "../../repositories/UserRepository";
-import EmailOrPasswordIncorrect from "./errors/EmailOrPasswordIncorrect";
+import TokenAccess from "@domain/infra/gateways/TokenAccess"
+import UserRepository from "../../repositories/UserRepository"
+import EmailOrPasswordIncorrect from "./errors/EmailOrPasswordIncorrect"
 
 export default class AuthUser {
     userRepository: UserRepository
@@ -13,7 +13,7 @@ export default class AuthUser {
 
     async execute(email: string, password: string): Promise<string>{
         const user = await this.userRepository.findByEmail(email)
-        
+
         if (!user) {
             throw new EmailOrPasswordIncorrect()
         }
@@ -21,7 +21,7 @@ export default class AuthUser {
         if (!await user.props.password.compare(password)) {
             throw new EmailOrPasswordIncorrect()
         }
-        
+
         const token = this.tokenAccess.getToken(user.getIdString())
 
         // if (!token){

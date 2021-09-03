@@ -1,4 +1,4 @@
-import DomainError from '../../../../domain/entities/errors/DomainError'
+import DomainError from '@domain/entities/errors/DomainError'
 
 export default class InvalidPhoneError extends Error implements DomainError{
     constructor(phone: string) {

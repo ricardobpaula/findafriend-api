@@ -1,4 +1,4 @@
-import Entity from "../../../domain/entities/Entity"
+import Entity from "@domain/entities/Entity"
 import SpecieProps from "./interfaces/SpecieProps"
 
 export default class Specie extends Entity<SpecieProps> {

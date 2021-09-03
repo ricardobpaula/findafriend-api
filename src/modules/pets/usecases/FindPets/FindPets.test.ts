@@ -1,8 +1,8 @@
-import UserRepositoryInMemory from "../../../accounts/repositories/in-memory/UserRepositoryInMemory"
+import UserRepositoryInMemory from "@modules/accounts/repositories/in-memory/UserRepositoryInMemory"
 import PetRepositoryInMemory from "../../repositories/in-memory/PetRepositoryInMemory"
 import SpecieRepositoryInMemory from "../../repositories/in-memory/SpecieRepositoryInMemory"
-import UserFactory from '../../../../../test/factories/UserFactory'
-import SpecieFactory from "../../../../../test/factories/SpecieFactory"
+import UserFactory from '@test/factories/UserFactory'
+import SpecieFactory from "@test/factories/SpecieFactory"
 import CreatePet from "../CreatePet/CreatePet"
 import { PortType } from "../../entities/interfaces/PetProps"
 import FindPets from "./FindPets"
@@ -44,12 +44,12 @@ describe('Find pets usecase', () =>{
             port: big,
             specie: dog
         })
-        
+
     })
     it('should be all pets created', async()=>{
         const findPets = new FindPets(petRepositoryInMemory)
         const pets = await findPets.all()
-        
+
         expect(!!pets).toBeTruthy()
     })
 })

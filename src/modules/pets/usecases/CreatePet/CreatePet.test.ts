@@ -1,5 +1,5 @@
-import SpecieFactory from '../../../../../test/factories/SpecieFactory'
-import UserFactory from '../../../../../test/factories/UserFactory'
+import SpecieFactory from '@test/factories/SpecieFactory'
+import UserFactory from '@test/factories/UserFactory'
 import User from '../../../accounts/entities/User'
 import UserRepositoryInMemory from '../../../accounts/repositories/in-memory/UserRepositoryInMemory'
 import { PortType } from '../../entities/interfaces/PetProps'

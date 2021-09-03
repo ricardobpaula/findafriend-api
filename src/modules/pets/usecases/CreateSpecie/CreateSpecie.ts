@@ -1,7 +1,7 @@
-import SpecieProps from "../../entities/interfaces/SpecieProps";
+import SpecieProps from "../../entities/interfaces/SpecieProps"
 import Specie from "../../entities/Specie"
-import SpecieRepository from "../../repositories/SpecieRepository";
-import SpecieAlreadyExists from "./errors/SpecieAlreadyExists";
+import SpecieRepository from "../../repositories/SpecieRepository"
+import SpecieAlreadyExists from "./errors/SpecieAlreadyExists"
 
 export default class CreateSpecie {
     specieRepository: SpecieRepository

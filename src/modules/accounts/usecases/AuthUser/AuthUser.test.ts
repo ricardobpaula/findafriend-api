@@ -1,5 +1,5 @@
-import UserFactory from "../../../../../test/factories/UserFactory"
-import JtwAdapter from "../../../../infra/gateways/JwtAdapter"
+import UserFactory from "@test/factories/UserFactory"
+import JtwAdapter from "@infra/gateways/JwtAdapter"
 
 import UserRepositoryInMemory from "../../repositories/in-memory/UserRepositoryInMemory"
 import AuthUser from "./AuthUser"

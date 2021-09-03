@@ -1,4 +1,3 @@
-import Email from "../entities/Email";
 import UserProps from "../entities/interfaces/UserProps";
 import User from "../entities/User";
 

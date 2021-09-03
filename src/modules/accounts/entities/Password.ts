@@ -1,12 +1,12 @@
-import Cryptography from "../../../domain/infra/gateways/Cryptography"
+import Cryptography from "@domain/infra/gateways/Cryptography"
 import InvalidPasswordError from "./errors/InvalidPasswordError"
 
 export default class Password {
     private password: string
-    private cryptography: Cryptography 
+    private cryptography: Cryptography
 
     constructor(password: string, cryptography?: Cryptography){
-        
+
         if(!this.validatePassword(password)){
             throw new InvalidPasswordError(password)
         }
@@ -27,7 +27,7 @@ export default class Password {
         if(!this.cryptography){
             return Promise.resolve(compare===this.password)
         }
-        
+
         return this.cryptography.compare(compare,this.password)
     }
 }
