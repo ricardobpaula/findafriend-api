@@ -1,5 +1,5 @@
-import Specie from "../../src/modules/pets/entities/Specie"
-import SpecieRepository from "../../src/modules/pets/repositories/SpecieRepository"
+import Specie from "@modules/pets/entities/Specie"
+import SpecieRepository from "@modules/pets/repositories/SpecieRepository"
 
 export default class SpecieFactory {
     private readonly specieRepository: SpecieRepository
