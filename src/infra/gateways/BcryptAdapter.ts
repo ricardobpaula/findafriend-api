@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs'
 
-import Cryptography from 'domain/infra/gateways/Cryptography'
+import Cryptography from '@domain/infra/gateways/Cryptography'
 
 export default class BcryptAdapter implements Cryptography {
   constructor () {}

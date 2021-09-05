@@ -4,16 +4,19 @@
     "module": "commonjs",
     "outDir": "./dist",
     "strict": false,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "@modules/*": ["modules/*"],
-      "@config/*": ["config/*"],
-      "@infra/*": ["infra/*"],
-      "@domain/*": ["domain/*"],
-      "@test/*": ["test/*"]
+      "@modules/*": ["./src/modules/*"],
+      "@config/*": ["./src/config/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@domain/*": ["./src/domain/*"],
+      "@test/*": ["./src/test/*"]
     }
-  }
+  },
+  "include": [
+    "src/**/*"
+  ]
 }
