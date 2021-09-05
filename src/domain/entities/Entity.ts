@@ -1,13 +1,13 @@
-export default abstract class Entity<T>{
+export default abstract class Entity<T> {
     public readonly id: number
     public readonly props: T
 
-    constructor(props: T, id: number){
-        this.id = id
-        this.props = props
+    constructor (props: T, id: number) {
+      this.id = id
+      this.props = props
     }
 
-    getIdString(): string {
-     return this.id.toString()   
+    getIdString (): string {
+      return this.id.toString()
     }
 }

@@ -1,6 +1,6 @@
 import Email from '../Email'
-import Password from '../Password';
-import Phone from '../Phone';
+import Password from '../Password'
+import Phone from '../Phone'
 
 export default interface UserProps {
     firstName: string

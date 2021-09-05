@@ -16,24 +16,24 @@ let specie: Specie
 const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet dolor imperdiet, vulputate augue ut, varius odio.'
 const port = 'small' as PortType
 
-describe('Pet entity',()=>{
-    beforeEach(async()=>{
-        userRepositoryInMemory = new UserRepositoryInMemory()
-        specieRepositoryInMemory = new SpecieRepositoryInMemory()
-        userFactory = new UserFactory(userRepositoryInMemory)
-        const createSpecie = new CreateSpecie(specieRepositoryInMemory)
-        owner = await userFactory.execute()
-        specie = await createSpecie.execute({
-            name: 'dog'
-        })
+describe('Pet entity', () => {
+  beforeEach(async () => {
+    userRepositoryInMemory = new UserRepositoryInMemory()
+    specieRepositoryInMemory = new SpecieRepositoryInMemory()
+    userFactory = new UserFactory(userRepositoryInMemory)
+    const createSpecie = new CreateSpecie(specieRepositoryInMemory)
+    owner = await userFactory.execute()
+    specie = await createSpecie.execute({
+      name: 'dog'
     })
-    it('should create a new pet',()=>{
-        const pet = new Pet({
-            description,
-            owner,
-            port,
-            specie
-        })
-        expect(pet.props.description).toBe(description)
+  })
+  it('should create a new pet', () => {
+    const pet = new Pet({
+      description,
+      owner,
+      port,
+      specie
     })
+    expect(pet.props.description).toBe(description)
+  })
 })

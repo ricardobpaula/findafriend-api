@@ -19,24 +19,24 @@ const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
 const port = 'small' as PortType
 
 describe('Usecase to create a new pet', () => {
-    beforeEach( async()=>{
-        userRepositoryInMemory = new UserRepositoryInMemory()
-        specieRepositoryInMemory = new SpecieRepositoryInMemory()
-        userFactory = new UserFactory(userRepositoryInMemory)
-        specieFactory = new SpecieFactory(specieRepositoryInMemory)
-        owner = await userFactory.execute()
-        specie = await specieFactory.execute('dog')
-    })
+  beforeEach(async () => {
+    userRepositoryInMemory = new UserRepositoryInMemory()
+    specieRepositoryInMemory = new SpecieRepositoryInMemory()
+    userFactory = new UserFactory(userRepositoryInMemory)
+    specieFactory = new SpecieFactory(specieRepositoryInMemory)
+    owner = await userFactory.execute()
+    specie = await specieFactory.execute('dog')
+  })
 
-    it('should be created a new pet', async()=>{
-        const petRepositoryInMemory = new PetRepositoryInMemory()
-        const createPet = new CreatePet(petRepositoryInMemory)
-        const pet = await createPet.execute({
-            owner,
-            specie,
-            description,
-            port
-        })
-        expect(pet.props.description).toBe(description)
+  it('should be created a new pet', async () => {
+    const petRepositoryInMemory = new PetRepositoryInMemory()
+    const createPet = new CreatePet(petRepositoryInMemory)
+    const pet = await createPet.execute({
+      owner,
+      specie,
+      description,
+      port
     })
+    expect(pet.props.description).toBe(description)
+  })
 })

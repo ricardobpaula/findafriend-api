@@ -1,8 +1,8 @@
-import DomainError from "@domain/entities/errors/DomainError"
+import DomainError from '@domain/entities/errors/DomainError'
 
-export default class EmailOrPasswordIncorrect extends Error implements DomainError{
-    constructor() {
-        super('Email or password is incorrect')
-        this.name = 'EmailOrPasswordIncorrect'
-    }
+export default class EmailOrPasswordIncorrect extends Error implements DomainError {
+  constructor () {
+    super('Email or password is incorrect')
+    this.name = 'EmailOrPasswordIncorrect'
+  }
 }

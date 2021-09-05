@@ -1,5 +1,5 @@
-import User from "@modules/accounts/entities/User"
-import Specie from "../Specie"
+import User from '@modules/accounts/entities/User'
+import Specie from '../Specie'
 
 export type PortType = 'small'|'medium'|'big'
 

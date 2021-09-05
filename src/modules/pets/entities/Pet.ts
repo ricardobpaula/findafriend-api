@@ -1,8 +1,8 @@
-import Entity from "@domain/entities/Entity"
-import PetProps from "./interfaces/PetProps";
+import Entity from '@domain/entities/Entity'
+import PetProps from './interfaces/PetProps'
 
-export default class Pet extends Entity<PetProps>{
-    constructor(props: PetProps, id?:number){
-        super(props,id)
-    }
+export default class Pet extends Entity<PetProps> {
+  constructor (props: PetProps, id?:number) {
+    super(props, id)
+  }
 }
