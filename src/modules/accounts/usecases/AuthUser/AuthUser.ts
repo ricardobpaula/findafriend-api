@@ -1,5 +1,6 @@
 import TokenAccess from '@domain/infra/gateways/TokenAccess'
 import UserRepository from '../../repositories/UserRepository'
+import AccessTokenError from './errors/AccessTokenError'
 import EmailOrPasswordIncorrect from './errors/EmailOrPasswordIncorrect'
 
 export default class AuthUser {
@@ -24,9 +25,9 @@ export default class AuthUser {
 
       const token = this.tokenAccess.getToken(user.getIdString())
 
-      // if (!token){
-      //     throw new AccessTokenError()
-      // }
+      if (!token) {
+        throw new AccessTokenError()
+      }
 
       return token
     }
