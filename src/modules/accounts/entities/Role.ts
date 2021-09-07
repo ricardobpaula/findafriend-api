@@ -1,30 +1,28 @@
 import InvalidRoleError from './errors/InvalidRoleError'
 
 enum ValidRoles {
-    'admin',
-    'common'
+    'admin' = 'admin',
+    'common' = 'common'
 }
 
 export default class Role {
-    readonly role: string
+    readonly role: ValidRoles
 
     private constructor (role: ValidRoles) {
-      this.role = ValidRoles[role]
+      this.role = role
     }
 
     static validateRoleType (role: string) {
-
-        return (Object.values(ValidRoles).includes(role))
+      return (Object.values(ValidRoles).includes(role as ValidRoles))
     }
 
     static create (roleProps: string): Role {
+      if (!this.validateRoleType(roleProps)) {
+        throw new InvalidRoleError(roleProps)
+      }
 
-        if (!this.validateRoleType(roleProps)){
-            throw new InvalidRoleError(roleProps);
-        }
+      const role = new Role(roleProps as ValidRoles)
 
-        const role = new Role(ValidRoles[roleProps])
-
-        return role
+      return role
     }
 }

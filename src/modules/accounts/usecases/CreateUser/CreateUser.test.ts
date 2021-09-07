@@ -10,7 +10,6 @@ const firstName = 'Peter'
 const lastName = 'Silva'
 const phone = Phone.create('11999998888')
 const password = Password.create('1234567')
-const role = 'commun'
 
 describe('Usecase create new user', () => {
   it('should create a new user', async () => {
@@ -21,8 +20,7 @@ describe('Usecase create new user', () => {
       firstName,
       lastName,
       phone,
-      password,
-      role
+      password
     })
     expect(user.props.email).toBe(email)
   })
@@ -35,8 +33,7 @@ describe('Usecase create new user', () => {
       firstName,
       lastName,
       phone,
-      password,
-      role
+      password
     })
     expect(user.props.email).toBe(email)
 
@@ -46,8 +43,7 @@ describe('Usecase create new user', () => {
         firstName,
         lastName,
         phone,
-        password,
-        role
+        password
       })
     }).rejects.toThrowError(EmailAlreadyUsed)
   })

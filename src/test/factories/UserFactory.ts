@@ -21,7 +21,6 @@ export default class UserFactory {
       this.lastName = 'Silva'
       this.phone = Phone.create('11999998888')
       this.password = Password.create('1234567')
-      this.role = 'commun'
     }
 
     async execute (): Promise<User> {
@@ -32,8 +31,7 @@ export default class UserFactory {
         firstName: this.firstName,
         lastName: this.lastName,
         phone: this.phone,
-        password: this.password,
-        role: this.role
+        password: this.password
       })
       return user
     }
