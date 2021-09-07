@@ -8,5 +8,7 @@ export default interface UserProps {
     phone: Phone
     email: Email
     password: Password
+    isFinding: boolean
+    avatar: string
     role: 'admin'|'commun'
 }
