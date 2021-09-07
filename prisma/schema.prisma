@@ -26,4 +26,6 @@ model User {
   role        Role      @default(commum)
   is_finding  Boolean   @default(true)
   avatar      String    @default("avatar.png")
+
+  @@map("users")
 }
