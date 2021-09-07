@@ -5,11 +5,11 @@ import Email from './Email'
 import Password from './Password'
 import Phone from './Phone'
 
-const email = new Email('peter@peterphotos.com')
+const email = Email.create('peter@peterphotos.com')
 const firstName = 'Peter'
 const lastName = 'Silva'
-const phone = new Phone('11999998888')
-const password = new Password('1234567')
+const phone = Phone.create('11999998888')
+const password = Password.create('1234567')
 const role = 'commun'
 
 describe('User entity', () => {

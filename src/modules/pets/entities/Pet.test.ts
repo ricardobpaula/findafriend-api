@@ -28,7 +28,7 @@ describe('Pet entity', () => {
     })
   })
   it('should create a new pet', () => {
-    const pet = new Pet({
+    const pet = Pet.create({
       description,
       owner,
       port,

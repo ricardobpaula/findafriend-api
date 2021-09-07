@@ -10,7 +10,7 @@ export default class PetRepositoryInMemory implements PetRepository {
     }
 
     async createPet (petProps: PetProps): Promise<Pet> {
-      const pet = new Pet(petProps, this.itens.length + 1)
+      const pet = Pet.create(petProps, this.itens.length + 1)
       this.itens.push(pet)
       return pet
     }

@@ -10,7 +10,7 @@ export default class SpecieRepositoryInMemory implements SpecieRepository {
     }
 
     async createSpecie (specieProps: SpecieProps): Promise<Specie> {
-      const newSpecie = new Specie(specieProps, this.itens.length + 1)
+      const newSpecie = Specie.create(specieProps, this.itens.length + 1)
       this.itens.push(newSpecie)
       return newSpecie
     }

@@ -5,17 +5,13 @@ export default class Password {
     private password: string
     private cryptography: Cryptography
 
-    constructor (password: string, cryptography?: Cryptography) {
-      if (!this.validatePassword(password)) {
-        throw new InvalidPasswordError(password)
-      }
-
+    private constructor (password: string, cryptography?: Cryptography) {
       this.password = password
       this.cryptography = cryptography
     }
 
-    private validatePassword (password: string): boolean {
-      return (password.length >= 6 && password.length <= 255)
+    private validatePassword (): boolean {
+      return (this.password.length >= 6 && this.password.length <= 255)
     }
 
     getHashed (): Promise<string> {
@@ -28,5 +24,17 @@ export default class Password {
       }
 
       return this.cryptography.compare(compare, this.password)
+    }
+
+    static create (passwordProps: string, cryptography?: Cryptography): Password {
+
+      const password = new Password(passwordProps, cryptography)
+
+      if (!password.validatePassword()) {
+        throw new InvalidPasswordError(passwordProps)
+      }
+
+      return password
+
     }
 }

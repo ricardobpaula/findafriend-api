@@ -16,11 +16,11 @@ export default class UserFactory {
 
     constructor (userRepository: UserRepository) {
       this.userRepository = userRepository
-      this.email = new Email('peter@peterphotos.com')
+      this.email = Email.create('peter@peterphotos.com')
       this.firstName = 'Peter'
       this.lastName = 'Silva'
-      this.phone = new Phone('11999998888')
-      this.password = new Password('1234567')
+      this.phone = Phone.create('11999998888')
+      this.password = Password.create('1234567')
       this.role = 'commun'
     }
 

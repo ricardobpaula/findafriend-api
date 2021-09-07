@@ -3,11 +3,7 @@ import InvalidEmailError from './errors/InvalidEmailError'
 export default class Email {
     private readonly email: string
 
-    constructor (email: string) {
-      if (!this.validateEmail(email)) {
-        throw new InvalidEmailError(email)
-      }
-
+    private constructor (email: string) {
       this.email = email
     }
 
@@ -15,9 +11,19 @@ export default class Email {
       return this.email
     }
 
-    private validateEmail (email: string): boolean {
+    private validateEmail (): boolean {
       const tester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
 
-      return tester.test(email)
+      return tester.test(this.email)
+    }
+
+    static create (emailProps: string): Email {
+      const email = new Email(emailProps)
+
+      if (!email.validateEmail()) {
+        throw new InvalidEmailError(emailProps)
+      }
+
+      return email
     }
 }
