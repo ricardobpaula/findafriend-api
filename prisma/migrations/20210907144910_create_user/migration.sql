@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('admin', 'commum');
+CREATE TYPE "Role" AS ENUM ('admin', 'common');
 
 -- CreateTable
 CREATE TABLE "users" (
@@ -10,7 +10,8 @@ CREATE TABLE "users" (
     "last_name" TEXT NOT NULL,
     "phone" CHAR(11) NOT NULL,
     "email" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT E'commum',
+    "password" TEXT NOT NULL,
+    "role" "Role" NOT NULL DEFAULT E'common',
     "is_finding" BOOLEAN NOT NULL DEFAULT true,
     "avatar" TEXT NOT NULL DEFAULT E'avatar.png',
 

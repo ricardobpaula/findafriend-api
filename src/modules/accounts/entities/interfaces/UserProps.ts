@@ -1,6 +1,7 @@
 import Email from '../Email'
 import Password from '../Password'
 import Phone from '../Phone'
+import Role from '../Role'
 
 export default interface UserProps {
     firstName: string
@@ -10,5 +11,5 @@ export default interface UserProps {
     password: Password
     isFinding: boolean
     avatar: string
-    role: 'admin'|'commun'
+    role: Role
 }
