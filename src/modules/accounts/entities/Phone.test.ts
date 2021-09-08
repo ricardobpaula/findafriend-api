@@ -4,7 +4,7 @@ import InvalidPhoneError from './errors/InvalidPhoneError'
 describe('Phone value', () => {
   it('should phone valid value', () => {
     const phone = Phone.create('11999998888')
-    expect(phone.phone).toBe('11999998888')
+    expect(phone.value).toBe('11999998888')
   })
 
   it('should be not accepted with length different from 11', () => {

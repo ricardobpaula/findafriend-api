@@ -11,10 +11,10 @@ export default class CreateUser {
     }
 
     async execute (userRequest: UserProps):Promise<User> {
-      const userAlreadyExists = await this.userRepository.findByEmail(userRequest.email.get())
+      const userAlreadyExists = await this.userRepository.findByEmail(userRequest.email.value)
 
       if (userAlreadyExists) {
-        throw new EmailAlreadyUsed(userRequest.email.get())
+        throw new EmailAlreadyUsed(userRequest.email.value)
       }
 
       const user = await this.userRepository.createUser(userRequest)

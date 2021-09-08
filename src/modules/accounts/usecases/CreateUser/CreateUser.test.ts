@@ -22,7 +22,7 @@ describe('Usecase create new user', () => {
       phone,
       password
     })
-    expect(user.props.email).toBe(email)
+    expect(user.props.email.value).toBe(email.value)
   })
 
   it('should reject two users with the same e-mail', async () => {
