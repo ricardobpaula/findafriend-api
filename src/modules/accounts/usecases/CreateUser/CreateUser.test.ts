@@ -1,5 +1,5 @@
+import PasswordFactory from '@modules/accounts/factories/PasswordFactory'
 import Email from '../../entities/Email'
-import Password from '../../entities/Password'
 import Phone from '../../entities/Phone'
 import UserRepositoryInMemory from '../../repositories/in-memory/UserRepositoryInMemory'
 import CreateUser from './CreateUser'
@@ -9,7 +9,7 @@ const email = Email.create('peter@peterphotos.com')
 const firstName = 'Peter'
 const lastName = 'Silva'
 const phone = Phone.create('11999998888')
-const password = Password.create('1234567')
+const password = PasswordFactory('1234567')
 
 describe('Usecase create new user', () => {
   it('should create a new user', async () => {

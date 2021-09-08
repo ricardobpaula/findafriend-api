@@ -4,14 +4,16 @@ import InvalidPasswordError from './errors/InvalidPasswordError'
 export default class Password {
     private password: string
     private cryptography: Cryptography
+    private hashed: boolean
 
-    private constructor (password: string, cryptography?: Cryptography) {
+    private constructor (password: string, cryptography: Cryptography, hashed: boolean) {
       this.password = password
       this.cryptography = cryptography
+      this.hashed = hashed
     }
 
-    private validatePassword (): boolean {
-      return (this.password.length >= 6 && this.password.length <= 255)
+    private static validatePassword (password: string): boolean {
+      return (password.length >= 6 && password.length <= 255)
     }
 
     getHashed (): Promise<string> {
@@ -19,22 +21,20 @@ export default class Password {
     }
 
     compare (compare: string): Promise<boolean> {
-      if (!this.cryptography) {
+      if (!this.hashed) {
         return Promise.resolve(compare === this.password)
       }
 
       return this.cryptography.compare(compare, this.password)
     }
 
-    static create (passwordProps: string, cryptography?: Cryptography): Password {
+    static create (passwordProps: string, cryptography: Cryptography, hashed: boolean = false): Password {
+      const password = new Password(passwordProps, cryptography, hashed)
 
-      const password = new Password(passwordProps, cryptography)
-
-      if (!password.validatePassword()) {
+      if (!hashed && !this.validatePassword(passwordProps)) {
         throw new InvalidPasswordError(passwordProps)
       }
 
       return password
-
     }
 }

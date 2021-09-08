@@ -4,7 +4,6 @@ import Role from './Role'
 describe('Role value', () => {
   it('should role valid value', () => {
     const role = Role.create('admin')
-    console.log(role.role)
     expect(role.role).toBe('admin')
   })
 

@@ -1,15 +1,15 @@
+import PasswordFactory from '../factories/PasswordFactory'
 import UserRepositoryInMemory from '../repositories/in-memory/UserRepositoryInMemory'
 import CreateUser from '../usecases/CreateUser/CreateUser'
 
 import Email from './Email'
-import Password from './Password'
 import Phone from './Phone'
 
 const email = Email.create('peter@peterphotos.com')
 const firstName = 'Peter'
 const lastName = 'Silva'
 const phone = Phone.create('11999998888')
-const password = Password.create('1234567')
+const password = PasswordFactory('1234567')
 
 describe('User entity', () => {
   it('should create a new user', async () => {
