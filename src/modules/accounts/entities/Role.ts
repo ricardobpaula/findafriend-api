@@ -6,10 +6,14 @@ enum ValidRoles {
 }
 
 export default class Role {
-    readonly role: ValidRoles
+    private readonly role: ValidRoles
 
     private constructor (role: ValidRoles) {
       this.role = role
+    }
+
+    get value(): string {
+      return this.role
     }
 
     static validateRoleType (role: string) {

@@ -7,7 +7,7 @@ export default class Email {
       this.email = email
     }
 
-    get ():string {
+    get value ():string {
       return this.email
     }
 

@@ -1,10 +1,14 @@
 import InvalidPhoneError from './errors/InvalidPhoneError'
 
 export default class Phone {
-    readonly phone: string
+    private readonly phone: string
 
     private constructor (phone: string) {
       this.phone = phone
+    }
+
+    get value (): string {
+      return this.phone
     }
 
     private validatePhone () {
