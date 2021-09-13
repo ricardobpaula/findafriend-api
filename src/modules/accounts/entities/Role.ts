@@ -21,6 +21,9 @@ export default class Role {
     }
 
     static create (roleProps: string): Role {
+      if (!roleProps) {
+        return
+      }
       if (!this.validateRoleType(roleProps)) {
         throw new InvalidRoleError(roleProps)
       }
