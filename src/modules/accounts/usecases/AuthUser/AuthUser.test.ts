@@ -15,7 +15,7 @@ describe('Authentication a new user', () => {
     tokenAdapter = new JtwAdapter()
     authUser = new AuthUser(userRepositoryInMemory, tokenAdapter)
     userFactory = new UserFactory(userRepositoryInMemory)
-    await userFactory.execute(true)
+    await userFactory.execute()
   })
   it('should receive a valid token', async () => {
     const token = await authUser.execute('peter@peterphotos.com', '123456')

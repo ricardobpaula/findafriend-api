@@ -1,13 +1,12 @@
 import { prisma } from '@infra/prisma/client'
 
-import UserProps from '@modules/accounts/entities/interfaces/UserProps'
 import User from '@modules/accounts/entities/User'
 import UserMapper from '@modules/accounts/mapper/UserMapper'
 import UserRepository from '../UserRepository'
 
 export default class UserRepositoryPrisma implements UserRepository {
-  async createUser (user: UserProps): Promise<User> {
-    const data = await UserMapper.toPersistence(user)
+  async createUser (user: User): Promise<User> {
+    const data = await UserMapper.toPersistence(user.props)
 
     const newUser = await prisma.user.create({ data })
 

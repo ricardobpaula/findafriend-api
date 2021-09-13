@@ -1,8 +1,6 @@
 import Email from '@modules/accounts/entities/Email'
-import Password from '@modules/accounts/entities/Password'
 import Phone from '@modules/accounts/entities/Phone'
 import User from '@modules/accounts/entities/User'
-import PasswordFactory from '@modules/accounts/factories/PasswordFactory'
 import UserRepository from '@modules/accounts/repositories/UserRepository'
 import CreateUser from '@modules/accounts/usecases/CreateUser/CreateUser'
 
@@ -12,7 +10,7 @@ export default class UserFactory {
     private readonly firstName: string
     private readonly lastName: string
     private readonly phone: Phone
-    private password: Password
+    private password: string
 
     constructor (userRepository: UserRepository) {
       this.userRepository = userRepository
@@ -20,21 +18,17 @@ export default class UserFactory {
       this.firstName = 'Peter'
       this.lastName = 'Silva'
       this.phone = Phone.create('11999998888')
-      this.password = PasswordFactory('123456')
+      this.password = '123456'
     }
 
-    async execute (hashed: boolean = false): Promise<User> {
+    async execute (): Promise<User> {
       const createUser = new CreateUser(this.userRepository)
-      if (hashed) {
-        this.password = PasswordFactory(await this.password.getHashed(), true)
-      }
-      const user = await createUser.execute({
-        email: this.email,
+      return await createUser.execute({
+        email: this.email.value,
         firstName: this.firstName,
         lastName: this.lastName,
-        phone: this.phone,
+        phone: this.phone.value,
         password: this.password
       })
-      return user
     }
 }
