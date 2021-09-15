@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "dev": "tsnd --respawn --transpile-only --ignore-watch node_modules --exit-child --clear -r tsconfig-paths/register src/infra/http/server.ts",
     "test": "jest",
     "lint": "eslint src --ext ts --ignore-path .gitignore ."
   },
@@ -15,6 +16,7 @@
     "@babel/preset-env": "^7.15.4",
     "@babel/preset-typescript": "^7.15.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.13",
     "@types/jest": "^27.0.1",
     "@types/jsonwebtoken": "^8.5.5",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
@@ -33,7 +35,11 @@
   },
   "dependencies": {
     "@prisma/client": "^2.30.3",
+    "@types/dotenv": "^8.2.0",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^8.5.1"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "ts-node-dev": "^1.1.8"
   }
 }
