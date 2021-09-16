@@ -9,6 +9,9 @@ let authUser: AuthUser
 let tokenAdapter: JtwAdapter
 let userFactory: UserFactory
 
+const email = 'peter@peterphotos.com'
+const password = '123456'
+
 describe('Authentication a new user', () => {
   beforeEach(async () => {
     userRepositoryInMemory = new UserRepositoryInMemory()
@@ -18,7 +21,7 @@ describe('Authentication a new user', () => {
     await userFactory.execute()
   })
   it('should receive a valid token', async () => {
-    const token = await authUser.execute('peter@peterphotos.com', '123456')
-    expect(!!await tokenAdapter.verify(token)).toBeTruthy()
+    const tokenOrError = await authUser.execute({ email, password })
+    expect(tokenOrError.isRight()).toBeTruthy()
   })
 })
