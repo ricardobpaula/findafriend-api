@@ -1,4 +1,5 @@
 import Cryptography from '@domain/infra/gateways/Cryptography'
+import { Either, left, right } from '@domain/logic/Either'
 import InvalidPasswordError from './errors/InvalidPasswordError'
 
 export default class Password {
@@ -28,13 +29,15 @@ export default class Password {
       return this.cryptography.compare(compare, this.password)
     }
 
-    static create (passwordProps: string, cryptography: Cryptography, hashed: boolean = false): Password {
+    static create (passwordProps: string,
+      cryptography: Cryptography,
+      hashed: boolean = false): Either<InvalidPasswordError, Password> {
       const password = new Password(passwordProps, cryptography, hashed)
 
       if (!hashed && !this.validatePassword(passwordProps)) {
-        throw new InvalidPasswordError(passwordProps)
+        return left(new InvalidPasswordError())
       }
 
-      return password
+      return right(password)
     }
 }

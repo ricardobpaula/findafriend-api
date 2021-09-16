@@ -1,3 +1,4 @@
+import { Either, left, right } from '@domain/logic/Either'
 import InvalidEmailError from './errors/InvalidEmailError'
 
 export default class Email {
@@ -17,13 +18,13 @@ export default class Email {
       return tester.test(this.email)
     }
 
-    static create (emailProps: string): Email {
-      const email = new Email(emailProps)
+    static create (emailProps: string): Either<InvalidEmailError, Email> {
+      const email = new Email(emailProps.toLowerCase())
 
       if (!email.validateEmail()) {
-        throw new InvalidEmailError(emailProps)
+        return left(new InvalidEmailError(emailProps))
       }
 
-      return email
+      return right(email)
     }
 }

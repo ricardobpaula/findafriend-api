@@ -1,3 +1,4 @@
+import { Either, left, right } from '@domain/logic/Either'
 import InvalidRoleError from './errors/InvalidRoleError'
 
 enum ValidRoles {
@@ -20,16 +21,14 @@ export default class Role {
       return (Object.values(ValidRoles).includes(role as ValidRoles))
     }
 
-    static create (roleProps: string): Role {
-      if (!roleProps) {
-        return
-      }
+    static create (roleProps: string = ValidRoles.common): Either<InvalidRoleError,Role> {
+      
       if (!this.validateRoleType(roleProps)) {
-        throw new InvalidRoleError(roleProps)
+        return left(new InvalidRoleError(roleProps))
       }
 
       const role = new Role(roleProps as ValidRoles)
 
-      return role
+      return right(role)
     }
 }

@@ -1,5 +1,7 @@
-import UserRepositoryInMemory from '../repositories/in-memory/UserRepositoryInMemory'
-import CreateUser from '../usecases/CreateUser/CreateUser'
+import PasswordFactory from '../factories/PasswordFactory'
+import Email from './Email'
+import Phone from './Phone'
+import User from './User'
 
 const email = 'peter@peterphotos.com'
 const firstName = 'Peter'
@@ -9,15 +11,32 @@ const password = '1234567'
 
 describe('User entity', () => {
   it('should create a new user', async () => {
-    const userRepositoryInMemory = new UserRepositoryInMemory()
-    const createUser = new CreateUser(userRepositoryInMemory)
-    const user = await createUser.execute({
-      email,
+    const emailOrError = Email.create(email)
+    const passwordOrError = PasswordFactory(password)
+    const phoneOrError = Phone.create(phone)
+
+    if (emailOrError.isLeft()) {
+      throw emailOrError.value
+    }
+    if (passwordOrError.isLeft()) {
+      throw passwordOrError.value
+    }
+    if (phoneOrError.isLeft()) {
+      throw phoneOrError.value
+    }
+
+    const userOrError = User.create({
+      email: emailOrError.value,
       firstName,
       lastName,
-      phone,
-      password
+      password: passwordOrError.value,
+      phone: phoneOrError.value
     })
-    expect(user.props.email.value).toBe(email)
+
+    if (userOrError.isLeft()) {
+      throw userOrError.value
+    }
+
+    expect(userOrError.isRight()).toBeTruthy()
   })
 })

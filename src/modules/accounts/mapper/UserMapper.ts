@@ -8,23 +8,42 @@ import PasswordFactory from '../factories/PasswordFactory'
 
 export default class UserMapper {
   static toDomain (raw: PersistenceUser): User {
-    const phone = Phone.create(raw.phone)
-    const email = Email.create(raw.email)
-    const password = PasswordFactory(raw.password, true)
-    const role = Role.create(raw.role)
+    const phoneOrError = Phone.create(raw.phone)
+    const emailOrError = Email.create(raw.email)
+    const passwordOrError = PasswordFactory(raw.password, true)
+    const roleOrError = Role.create(raw.role)
 
-    const user = User.create({
+    if (emailOrError.isLeft()) {
+      throw emailOrError.value
+    }
+
+    if (passwordOrError.isLeft()) {
+      throw passwordOrError.value
+    }
+
+    if (roleOrError.isLeft()) {
+      throw roleOrError.value
+    }
+
+    if (phoneOrError.isLeft()) {
+      throw phoneOrError.value
+    }
+
+    const userOrError = User.create({
       firstName: raw.first_name,
       lastName: raw.last_name,
-      phone,
-      email,
-      password,
+      phone: phoneOrError.value,
+      email: emailOrError.value,
+      password: passwordOrError.value,
       isFinding: raw.is_finding,
       avatar: raw.avatar,
-      role
+      role: roleOrError.value
     }, raw.id)
 
-    return user
+    if (userOrError.isLeft()) {
+      throw userOrError.value
+    }
+    return userOrError.value
   }
 
   static async toPersistence (user: UserProps) {

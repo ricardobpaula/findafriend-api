@@ -2,7 +2,6 @@ import { Controller } from '@domain/infra/gateways/Controller'
 import HttpRequest from '@domain/infra/gateways/HttpRequest'
 import { errorHttp, sucessHttp, HttpResponse } from '@domain/infra/gateways/HttpResponse'
 import CreateUser, { UserRequest } from './CreateUser'
-import EmailAlreadyUsed from './errors/EmailAlreadyUsed'
 
 export default class CreateUserController implements Controller {
   private readonly createUser: CreateUser
@@ -14,16 +13,13 @@ export default class CreateUserController implements Controller {
     try {
       // TODO validar request
 
-      await this.createUser.execute(body)
+      const userOrError = await this.createUser.execute(body)
+      if (userOrError.isLeft()) {
+        return errorHttp(400, userOrError.value)
+      }
       return sucessHttp(201)
     } catch (error) {
-      switch (error.contructor) {
-        case EmailAlreadyUsed:
-          return errorHttp(400, error)
-
-        default:
-          return errorHttp(500, error)
-      }
+      return errorHttp(500, error)
     }
   }
 }

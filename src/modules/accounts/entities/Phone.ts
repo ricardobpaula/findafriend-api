@@ -1,3 +1,4 @@
+import { Either, left, right } from '@domain/logic/Either'
 import InvalidPhoneError from './errors/InvalidPhoneError'
 
 export default class Phone {
@@ -15,13 +16,13 @@ export default class Phone {
       return this.phone.length === 11
     }
 
-    static create (phoneProps: string): Phone {
+    static create (phoneProps: string): Either<InvalidPhoneError, Phone> {
       const phone = new Phone(phoneProps)
 
       if (!phone.validatePhone()) {
-        throw new InvalidPhoneError(phoneProps)
+        return left(new InvalidPhoneError(phoneProps))
       }
 
-      return phone
+      return right(phone)
     }
 }

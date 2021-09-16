@@ -1,8 +1,8 @@
 import DomainError from '@domain/entities/errors/DomainError'
 
 export default class InvalidPasswordError extends Error implements DomainError {
-  constructor (password: string) {
-    super(`The password ${password} is invalid`)
+  constructor () {
+    super('The password is invalid')
     this.name = 'InvalidPasswordError'
   }
 }

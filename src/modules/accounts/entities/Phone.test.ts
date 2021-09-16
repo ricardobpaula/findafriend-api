@@ -1,16 +1,13 @@
 import Phone from './Phone'
-import InvalidPhoneError from './errors/InvalidPhoneError'
 
 describe('Phone value', () => {
   it('should phone valid value', () => {
-    const phone = Phone.create('11999998888')
-    expect(phone.value).toBe('11999998888')
+    const phoneOrError = Phone.create('11999998888')
+    expect(phoneOrError.isRight()).toBeTruthy()
   })
 
   it('should be not accepted with length different from 11', () => {
-    const error = () => {
-      Phone.create('011999998888')
-    }
-    expect(error).toThrowError(InvalidPhoneError)
+    const phoneOrError = Phone.create('011999998888')
+    expect(phoneOrError.isLeft()).toBeTruthy()
   })
 })

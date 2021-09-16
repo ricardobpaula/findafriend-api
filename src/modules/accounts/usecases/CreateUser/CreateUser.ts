@@ -45,23 +45,43 @@ export default class CreateUser {
         return left(new EmailAlreadyUsed(request.email))
       }
 
-      const email = Email.create(request.email)
-      const password = PasswordFactory(request.password)
-      const phone = Phone.create(request.phone)
-      const role = Role.create(request.role)
-      // TODO Validations to creates methods
-      const userRequest = User.create({
+      const emailOrError = Email.create(request.email)
+      const passwordOrError = PasswordFactory(request.password)
+      const phoneOrError = Phone.create(request.phone)
+      const roleOrError = Role.create(request.role)
+
+      if (emailOrError.isLeft()) {
+        return left(emailOrError.value)
+      }
+
+      if (passwordOrError.isLeft()) {
+        return left(passwordOrError.value)
+      }
+
+      if (roleOrError.isLeft()) {
+        return left(roleOrError.value)
+      }
+
+      if (phoneOrError.isLeft()) {
+        return left(phoneOrError.value)
+      }
+
+      const userOrError = User.create({
         firstName: request.firstName,
         lastName: request.lastName,
         avatar: request?.avatar,
         isFinding: request?.isFinding,
-        phone,
-        email,
-        password,
-        role
+        phone: phoneOrError.value,
+        email: emailOrError.value,
+        password: passwordOrError.value,
+        role: roleOrError.value
       })
 
-      const user = await this.userRepository.createUser(userRequest)
+      if (userOrError.isLeft()) {
+        return left(userOrError.value)
+      }
+
+      const user = await this.userRepository.createUser(userOrError.value)
 
       return right(user)
     }

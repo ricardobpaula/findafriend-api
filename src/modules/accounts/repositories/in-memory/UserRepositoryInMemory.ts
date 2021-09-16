@@ -25,18 +25,28 @@ export default class implements UserRepository {
         role
       } = user.props
 
-      const passwordHashed = PasswordFactory(await password.getHashed(), true)
+      const passwordOrError = PasswordFactory(await password.getHashed(), true)
 
-      const newUser = User.create({
+      if (passwordOrError.isLeft()) {
+        throw passwordOrError.value
+      }
+
+      const userOrError = User.create({
         email,
         firstName,
         lastName,
-        password: passwordHashed,
+        password,
         phone,
         avatar,
         isFinding,
         role
       }, this.itens.length + 1)
+
+      if (userOrError.isLeft()) {
+        throw userOrError.value
+      }
+
+      const newUser = userOrError.value
       this.itens.push(newUser)
 
       return newUser
