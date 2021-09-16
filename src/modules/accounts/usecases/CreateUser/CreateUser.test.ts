@@ -1,6 +1,5 @@
 import UserRepositoryInMemory from '../../repositories/in-memory/UserRepositoryInMemory'
 import CreateUser from './CreateUser'
-import EmailAlreadyUsed from './errors/EmailAlreadyUsed'
 
 const email = 'peter@peterphotos.com'
 const firstName = 'Peter'
@@ -12,36 +11,36 @@ describe('Usecase create new user', () => {
   it('should create a new user', async () => {
     const userRepositoryInMemory = new UserRepositoryInMemory()
     const createUser = new CreateUser(userRepositoryInMemory)
-    const user = await createUser.execute({
+    const userOrError = await createUser.execute({
       email,
       firstName,
       lastName,
       phone,
       password
     })
-    expect(user.props.email.value).toBe(email)
+    expect(userOrError.isRight()).toBeTruthy()
   })
 
   it('should reject two users with the same e-mail', async () => {
     const userRepositoryInMemory = new UserRepositoryInMemory()
     const createUser = new CreateUser(userRepositoryInMemory)
-    const user = await createUser.execute({
+    const userOrError = await createUser.execute({
       email,
       firstName,
       lastName,
       phone,
       password
     })
-    expect(user.props.email.value).toBe(email)
+    expect(userOrError.isRight()).toBeTruthy()
 
-    expect(async () => {
-      await createUser.execute({
-        email,
-        firstName,
-        lastName,
-        phone,
-        password
-      })
-    }).rejects.toThrowError(EmailAlreadyUsed)
+    const userOrError2 = await createUser.execute({
+      email,
+      firstName,
+      lastName,
+      phone,
+      password
+    })
+
+    expect(userOrError2.isLeft()).toBeTruthy()
   })
 })
