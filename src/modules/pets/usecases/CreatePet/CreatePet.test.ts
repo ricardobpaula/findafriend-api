@@ -2,8 +2,7 @@ import SpecieFactory from '@test/factories/SpecieFactory'
 import UserFactory from '@test/factories/UserFactory'
 import User from '@modules/accounts/entities/User'
 import UserRepositoryInMemory from '@modules/accounts/repositories/in-memory/UserRepositoryInMemory'
-import { PortType } from '../../entities/interfaces/PetProps'
-import Specie from '../../entities/Specie'
+import Specie from '../../entities/Specie/Specie'
 import PetRepositoryInMemory from '../../repositories/in-memory/PetRepositoryInMemory'
 import SpecieRepositoryInMemory from '../../repositories/in-memory/SpecieRepositoryInMemory'
 import CreatePet from './CreatePet'
@@ -15,8 +14,10 @@ let specieFactory: SpecieFactory
 let owner: User
 let specie: Specie
 
-const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet dolor imperdiet, vulputate augue ut, varius odio.'
-const port = 'small' as PortType
+const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
+  'In sit amet dolor imperdiet, vulputate augue ut, varius odio.'
+
+const size = 'small'
 
 describe('Usecase to create a new pet', () => {
   beforeEach(async () => {
@@ -30,13 +31,15 @@ describe('Usecase to create a new pet', () => {
 
   it('should be created a new pet', async () => {
     const petRepositoryInMemory = new PetRepositoryInMemory()
-    const createPet = new CreatePet(petRepositoryInMemory)
+    const createPet = new CreatePet(petRepositoryInMemory, specieRepositoryInMemory, userRepositoryInMemory)
+
     const pet = await createPet.execute({
-      owner,
-      specie,
+      ownerId: owner.id,
+      specie: specie.props.name.value,
       description,
-      port
+      size
     })
-    expect(pet.props.description).toBe(description)
+    console.log(pet.value)
+    expect(pet.isRight()).toBeTruthy()
   })
 })

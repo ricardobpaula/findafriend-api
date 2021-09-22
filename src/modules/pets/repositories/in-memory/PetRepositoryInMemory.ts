@@ -1,5 +1,4 @@
-import PetProps from '../../entities/interfaces/PetProps'
-import Pet from '../../entities/Pet'
+import Pet from '../../entities/Pet/Pet'
 import PetRepository from '../PetRepository'
 
 export default class PetRepositoryInMemory implements PetRepository {
@@ -9,10 +8,13 @@ export default class PetRepositoryInMemory implements PetRepository {
       this.itens = []
     }
 
-    async createPet (petProps: PetProps): Promise<Pet> {
-      const pet = Pet.create(petProps, this.itens.length + 1)
-      this.itens.push(pet)
-      return pet
+    async createPet (pet: Pet): Promise<Pet> {
+      const petOrError = Pet.create(pet.props, this.itens.length + 1)
+      if (petOrError.isLeft()) {
+        throw petOrError.value
+      }
+      this.itens.push(petOrError.value)
+      return petOrError.value
     }
 
     async findAll (): Promise<Pet[]> {

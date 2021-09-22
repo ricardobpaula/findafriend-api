@@ -1,7 +1,6 @@
-import PetProps from '../entities/interfaces/PetProps'
-import Pet from '../entities/Pet'
+import Pet from '../entities/Pet/Pet'
 
 export default interface PetRepository {
-    createPet(petProps: PetProps):Promise<Pet>
+    createPet(pet: Pet):Promise<Pet>
     findAll():Promise<Pet[]>
 }

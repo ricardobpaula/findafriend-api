@@ -12,7 +12,7 @@ export default class Email {
       return this.email
     }
 
-    private validateEmail (): boolean {
+    private validate (): boolean {
       const tester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
 
       return tester.test(this.email)
@@ -21,7 +21,7 @@ export default class Email {
     static create (emailProps: string): Either<InvalidEmailError, Email> {
       const email = new Email(emailProps.toLowerCase())
 
-      if (!email.validateEmail()) {
+      if (!email.validate()) {
         return left(new InvalidEmailError(emailProps))
       }
 

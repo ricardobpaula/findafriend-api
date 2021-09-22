@@ -1,7 +1,6 @@
-import SpecieProps from '../entities/interfaces/SpecieProps'
-import Specie from '../entities/Specie'
+import Specie from '../entities/Specie/Specie'
 
 export default interface SpecieRepository{
-    createSpecie(specieProps: SpecieProps):Promise<Specie>
+    createSpecie(specie: Specie):Promise<Specie>
     findByName(name: string): Promise<Specie>
 }

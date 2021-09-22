@@ -5,6 +5,12 @@ import UserMapper from '@modules/accounts/mapper/UserMapper'
 import UserRepository from '../UserRepository'
 
 export default class UserRepositoryPrisma implements UserRepository {
+  async findById (id: number): Promise<User> {
+    const user = await prisma.user.findUnique({ where: { id } })
+
+    return UserMapper.toDomain(user)
+  }
+
   async createUser (user: User): Promise<User> {
     const data = await UserMapper.toPersistence(user.props)
 

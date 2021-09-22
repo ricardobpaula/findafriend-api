@@ -1,4 +1,4 @@
-import Pet from '../../entities/Pet'
+import Pet from '../../entities/Pet/Pet'
 import PetRepository from '../../repositories/PetRepository'
 
 export default class FindPets {

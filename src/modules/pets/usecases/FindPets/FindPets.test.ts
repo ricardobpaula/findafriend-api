@@ -4,7 +4,7 @@ import SpecieRepositoryInMemory from '../../repositories/in-memory/SpecieReposit
 import UserFactory from '@test/factories/UserFactory'
 import SpecieFactory from '@test/factories/SpecieFactory'
 import CreatePet from '../CreatePet/CreatePet'
-import { PortType } from '../../entities/interfaces/PetProps'
+import { PortType } from '../../entities/Pet/PetProps'
 import FindPets from './FindPets'
 
 let petRepositoryInMemory: PetRepositoryInMemory

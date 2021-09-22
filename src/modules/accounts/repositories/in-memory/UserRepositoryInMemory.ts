@@ -9,6 +9,10 @@ export default class implements UserRepository {
       this.itens = []
     }
 
+    async findById (id: number): Promise<User> {
+      return this.itens[id - 1]
+    }
+
     async findByEmail (email: string): Promise<User> {
       return this.itens.find(item => item.props.email.value === email)
     }

@@ -1,7 +1,15 @@
-import SpecieProps from '../../entities/interfaces/SpecieProps'
-import Specie from '../../entities/Specie'
+import Specie from '../../entities/Specie/Specie'
 import SpecieRepository from '../../repositories/SpecieRepository'
 import SpecieAlreadyExists from './errors/SpecieAlreadyExists'
+import { Either, left, right } from '@domain/logic/Either'
+import InvalidNameError from '@modules/pets/entities/Specie/errors/InvalidNameError'
+import Name from '@modules/pets/entities/Specie/Name'
+
+type SpecieRequest = {
+  name: string
+}
+
+type SpecieResponse = Either<InvalidNameError| SpecieAlreadyExists, Specie>
 
 export default class CreateSpecie {
     specieRepository: SpecieRepository
@@ -9,19 +17,27 @@ export default class CreateSpecie {
       this.specieRepository = specieRepository
     }
 
-    async execute (specieProps:SpecieProps):Promise<Specie> {
-      const specieAlreadyExists = await this.specieRepository.findByName(specieProps.name)
+    async execute (request:SpecieRequest):Promise<SpecieResponse> {
+      const specieAlreadyExists = await this.specieRepository.findByName(request.name)
 
       if (specieAlreadyExists) {
-        throw new SpecieAlreadyExists(specieProps.name)
+        return left(new SpecieAlreadyExists(request.name))
       }
 
-      const specie = this.specieRepository.createSpecie(specieProps)
+      const nameOrError = Name.create(request.name)
 
-      if (!specie) {
-        throw new Error('Cannot create a specie')
+      if (nameOrError.isLeft()) {
+        return left(nameOrError.value)
       }
 
-      return specie
+      const specieOrError = Specie.create({ name: nameOrError.value })
+
+      if (specieOrError.isLeft()) {
+        return left(specieOrError.value)
+      }
+
+      const specie = await this.specieRepository.createSpecie(specieOrError.value)
+
+      return right(specie)
     }
 }
