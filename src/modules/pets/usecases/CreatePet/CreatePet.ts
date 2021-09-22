@@ -25,9 +25,9 @@ type PetResponse = Either<
   Pet>
 
 export default class CreatePet {
-    private petRepository: PetRepository
-    private specieRepository: SpecieRepository
-    private userRepository: UserRepository
+    private readonly petRepository: PetRepository
+    private readonly specieRepository: SpecieRepository
+    private readonly userRepository: UserRepository
 
     constructor (
       petRepository: PetRepository,

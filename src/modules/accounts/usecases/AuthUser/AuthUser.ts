@@ -16,8 +16,8 @@ type TokenResponse = {
 type AuthReponse = Either< EmailOrPasswordIncorrect | AccessTokenError, TokenResponse>
 
 export default class AuthUser {
-    userRepository: UserRepository
-    tokenAccess: TokenAccess
+    private readonly userRepository: UserRepository
+    private readonly tokenAccess: TokenAccess
 
     constructor (userRepository: UserRepository, tokenAccess: TokenAccess) {
       this.userRepository = userRepository

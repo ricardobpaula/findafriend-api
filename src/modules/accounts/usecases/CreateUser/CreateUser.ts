@@ -32,7 +32,7 @@ type UserResponse = Either<
 >
 
 export default class CreateUser {
-    private userRepository: UserRepository
+    private readonly userRepository: UserRepository
 
     constructor (userRepository: UserRepository) {
       this.userRepository = userRepository
