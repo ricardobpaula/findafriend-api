@@ -1,54 +1,83 @@
 import UserRepositoryInMemory from '@modules/accounts/repositories/in-memory/UserRepositoryInMemory'
-import PetRepositoryInMemory from '../../repositories/in-memory/PetRepositoryInMemory'
-import SpecieRepositoryInMemory from '../../repositories/in-memory/SpecieRepositoryInMemory'
-import UserFactory from '@test/factories/UserFactory'
+import UserRepository from '@modules/accounts/repositories/UserRepository'
+import PetRepositoryInMemory from '@modules/pets/repositories/in-memory/PetRepositoryInMemory'
+import SpecieRepositoryInMemory from '@modules/pets/repositories/in-memory/SpecieRepositoryInMemory'
+import PetRepository from '@modules/pets/repositories/PetRepository'
+import SpecieRepository from '@modules/pets/repositories/SpecieRepository'
+import PetFactory from '@test/factories/PetFactory'
 import SpecieFactory from '@test/factories/SpecieFactory'
-import CreatePet from '../CreatePet/CreatePet'
-import { PortType } from '../../entities/Pet/PetProps'
+import UserFactory from '@test/factories/UserFactory'
 import FindPets from './FindPets'
 
-let petRepositoryInMemory: PetRepositoryInMemory
-let userRepositoryInMemory: UserRepositoryInMemory
-let specieRepositoryInMemory: SpecieRepositoryInMemory
+let petRepositoryInMemory: PetRepository
+let userRepositoryInMemory: UserRepository
+let specieRepositoryInMemory: SpecieRepository
 
-const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit amet dolor imperdiet, vulputate augue ut, varius odio.'
-const small = 'small' as PortType
-const big = 'big' as PortType
+const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
+  'In sit amet dolor imperdiet, vulputate augue ut, varius odio.'
 
-describe('Find pets usecase', () => {
+describe('Find all pets usecase', () => {
   beforeEach(async () => {
     petRepositoryInMemory = new PetRepositoryInMemory()
     userRepositoryInMemory = new UserRepositoryInMemory()
     specieRepositoryInMemory = new SpecieRepositoryInMemory()
     const userFactory = new UserFactory(userRepositoryInMemory)
-    const owner = await userFactory.execute()
     const specieFactory = new SpecieFactory(specieRepositoryInMemory)
-    const cat = await specieFactory.execute('cat')
-    const dog = await specieFactory.execute('dog')
-    const createPet = new CreatePet(petRepositoryInMemory)
-    await createPet.execute({
+    const petFactory = new PetFactory(
+      petRepositoryInMemory,
+      userRepositoryInMemory,
+      specieRepositoryInMemory)
+    const owner = await userFactory.execute()
+    await specieFactory.execute('dog')
+    await specieFactory.execute('cat')
+    await petFactory.execute({
       description,
-      owner,
-      port: small,
-      specie: cat
+      size: 'small',
+      ownerId: owner.id,
+      specie: 'dog'
     })
-    await createPet.execute({
+    await petFactory.execute({
       description,
-      owner,
-      port: small,
-      specie: dog
+      size: 'small',
+      ownerId: owner.id,
+      specie: 'dog'
     })
-    await createPet.execute({
+    await petFactory.execute({
       description,
-      owner,
-      port: big,
-      specie: dog
+      size: 'big',
+      ownerId: owner.id,
+      specie: 'dog'
+    })
+    await petFactory.execute({
+      description,
+      size: 'small',
+      ownerId: owner.id,
+      specie: 'cat'
     })
   })
-  it('should be all pets created', async () => {
-    const findPets = new FindPets(petRepositoryInMemory)
-    const pets = await findPets.all()
 
-    expect(!!pets).toBeTruthy()
+  it('Should be received all pets', async () => {
+    const findPets = new FindPets(petRepositoryInMemory)
+    const data = await findPets.execute()
+    expect(data.isRight()).toBeTruthy()
+  })
+
+  it('Should be received all pets with the filters', async () => {
+    const findPets = new FindPets(petRepositoryInMemory)
+    const data = await findPets.execute()
+    expect(data.isRight()).toBeTruthy()
+  })
+
+  it('Should be received all pets with the pagination', async () => {
+    const findPets = new FindPets(petRepositoryInMemory)
+    const data = await findPets.execute({ limit: 2, offset: 0 })
+    expect(data.isRight()).toBeTruthy()
+  })
+
+  it('Should reject because no found pets', async () => {
+    const petRepositoryEmpty = new PetRepositoryInMemory()
+    const findPets = new FindPets(petRepositoryEmpty)
+    const data = await findPets.execute()
+    expect(data.isLeft()).toBeTruthy()
   })
 })
