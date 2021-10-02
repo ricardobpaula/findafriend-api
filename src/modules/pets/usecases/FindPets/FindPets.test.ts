@@ -56,28 +56,21 @@ describe('Find all pets usecase', () => {
     })
   })
 
-  it('Should be received all pets', async () => {
-    const findPets = new FindPets(petRepositoryInMemory)
-    const data = await findPets.execute()
-    expect(data.isRight()).toBeTruthy()
-  })
-
-  it('Should be received all pets with the filters', async () => {
-    const findPets = new FindPets(petRepositoryInMemory)
-    const data = await findPets.execute()
-    expect(data.isRight()).toBeTruthy()
-  })
-
-  it('Should be received all pets with the pagination', async () => {
-    const findPets = new FindPets(petRepositoryInMemory)
+  it('Should be received to 2 pets', async () => {
+    const findPets = new FindPets(petRepositoryInMemory, specieRepositoryInMemory)
     const data = await findPets.execute({ limit: 2, offset: 0 })
-    expect(data.isRight()).toBeTruthy()
+    expect(data.length === 2).toBeTruthy()
   })
 
-  it('Should reject because no found pets', async () => {
-    const petRepositoryEmpty = new PetRepositoryInMemory()
-    const findPets = new FindPets(petRepositoryEmpty)
-    const data = await findPets.execute()
-    expect(data.isLeft()).toBeTruthy()
+  it('Should be received pet with size equals small', async () => {
+    const findPets = new FindPets(petRepositoryInMemory, specieRepositoryInMemory)
+    const data = await findPets.execute({ limit: 5, offset: 0, size: 'small' })
+    expect(data.length > 0).toBeTruthy()
+  })
+
+  it('Should be received pet with specie equals dog', async () => {
+    const findPets = new FindPets(petRepositoryInMemory, specieRepositoryInMemory)
+    const data = await findPets.execute({ limit: 5, offset: 0, species: ['dog'] })
+    expect(data.length > 0).toBeTruthy()
   })
 })

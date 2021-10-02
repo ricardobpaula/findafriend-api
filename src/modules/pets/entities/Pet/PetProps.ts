@@ -6,4 +6,5 @@ export default interface PetProps {
   ownerId: number
   specieId: number
   size: Size
+  adopted: boolean
 }

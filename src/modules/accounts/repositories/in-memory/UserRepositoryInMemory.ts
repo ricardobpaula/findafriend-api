@@ -3,18 +3,18 @@ import User from '../../entities/User'
 import UserRepository from '../UserRepository'
 
 export default class implements UserRepository {
-    private itens: Array<User>
+    private items: Array<User>
 
     constructor () {
-      this.itens = []
+      this.items = []
     }
 
     async findById (id: number): Promise<User> {
-      return this.itens[id - 1]
+      return this.items[id - 1]
     }
 
     async findByEmail (email: string): Promise<User> {
-      return this.itens.find(item => item.props.email.value === email)
+      return this.items.find(item => item.props.email.value === email)
     }
 
     async createUser (user: User): Promise<User> {
@@ -44,14 +44,14 @@ export default class implements UserRepository {
         avatar,
         isFinding,
         role
-      }, this.itens.length + 1)
+      }, this.items.length + 1)
 
       if (userOrError.isLeft()) {
         throw userOrError.value
       }
 
       const newUser = userOrError.value
-      this.itens.push(newUser)
+      this.items.push(newUser)
 
       return newUser
     }

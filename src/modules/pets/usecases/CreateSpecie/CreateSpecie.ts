@@ -18,7 +18,7 @@ export default class CreateSpecie {
     }
 
     async execute (request:SpecieRequest):Promise<SpecieResponse> {
-      const specieAlreadyExists = await this.specieRepository.findByName(request.name)
+      const specieAlreadyExists = await this.specieRepository.findOneByName(request.name)
 
       if (specieAlreadyExists) {
         return left(new SpecieAlreadyExists(request.name))

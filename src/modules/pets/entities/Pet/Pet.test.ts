@@ -25,7 +25,8 @@ describe('Pet entity', () => {
       description: descriptionOrError.value,
       size: sizeOrError.value,
       ownerId: 1,
-      specieId: 1
+      specieId: 1,
+      adopted: false
     })
 
     expect(petOrError.isRight()).toBeTruthy()

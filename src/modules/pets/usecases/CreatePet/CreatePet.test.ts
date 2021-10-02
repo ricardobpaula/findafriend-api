@@ -39,7 +39,6 @@ describe('Usecase to create a new pet', () => {
       description,
       size
     })
-    console.log(pet.value)
     expect(pet.isRight()).toBeTruthy()
   })
 })

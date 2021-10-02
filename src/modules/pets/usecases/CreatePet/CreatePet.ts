@@ -44,7 +44,7 @@ export default class CreatePet {
         return left(new UserNotFoundError())
       }
 
-      const specie = await this.specieRepository.findByName(request.specie)
+      const specie = await this.specieRepository.findOneByName(request.specie)
 
       if (!specie) {
         return left(new SpecieNotFoundError(request.specie))
@@ -65,7 +65,8 @@ export default class CreatePet {
         description: descriptionOrError.value,
         ownerId: owner.id,
         size: sizeOrError.value,
-        specieId: specie.id
+        specieId: specie.id,
+        adopted: false
       })
 
       if (petOrError.isLeft()) {
