@@ -9,7 +9,18 @@ export type AuthRequest = {
   password: string
 }
 
+type UserResponse = {
+    firstName: string,
+    lastName: string,
+    phone: string,
+    email: string,
+    isFinding: boolean,
+    avatar: string,
+    role: string
+}
+
 type TokenResponse = {
+  user: UserResponse,
   token: string
 }
 
@@ -41,6 +52,16 @@ export default class AuthUser {
         return left(new AccessTokenError())
       }
 
-      return right({ token })
+      const userResponse = {
+        firstName: user.props.firstName,
+        lastName: user.props.lastName,
+        email: user.props.email.value,
+        phone: user.props.phone.value,
+        avatar: user.props.avatar,
+        isFinding: user.props.isFinding,
+        role: user.props.role.value
+      } as UserResponse
+
+      return right({ user: userResponse, token })
     }
 }
