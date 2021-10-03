@@ -1,4 +1,4 @@
-import { Controller } from '@domain/infra/gateways/Controller'
+import Controller from '@domain/infra/gateways/Controller'
 import { Request, Response } from 'express'
 
 const adaptExpressRoute = (controller: Controller) => {

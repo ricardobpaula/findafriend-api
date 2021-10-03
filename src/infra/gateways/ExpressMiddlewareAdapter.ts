@@ -20,7 +20,7 @@ const adapterMiddleware = (middleware :Middleware) => {
       return next()
     } else {
       return response.status(httpResponse.statusCode).json({
-        error: httpResponse.body.error
+        error: httpResponse.body
       })
     }
   }
