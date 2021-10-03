@@ -3,7 +3,7 @@ export interface HttpResponse {
   body: any
 }
 
-export function sucessHttp<T> (statusCode: number, data?: T): HttpResponse {
+export function successHttp<T> (statusCode: number, data?: T): HttpResponse {
   return {
     statusCode,
     body: data

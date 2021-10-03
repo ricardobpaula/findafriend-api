@@ -3,9 +3,9 @@ import InvalidSizeError from './errors/InvalidSizeError'
 
 enum ValidSize {
   'undefined' = 'undefined',
-  'small'     = 'small',
-  'medium'    = 'medium',
-  'big'       = 'big'
+  'small' = 'small',
+  'medium' = 'medium',
+  'big' = 'big'
 }
 
 export default class Size {
@@ -15,7 +15,7 @@ export default class Size {
       this.size = size
     }
 
-    get value(): string {
+    get value (): string {
       return this.size
     }
 
@@ -23,8 +23,7 @@ export default class Size {
       return (Object.values(ValidSize).includes(size as ValidSize))
     }
 
-    static create (sizeProps: string = ValidSize.undefined): Either<InvalidSizeError,Size> {
-
+    static create (sizeProps: string = ValidSize.undefined): Either<InvalidSizeError, Size> {
       if (!this.validateSizeType(sizeProps)) {
         return left(new InvalidSizeError(sizeProps))
       }

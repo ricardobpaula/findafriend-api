@@ -2,9 +2,9 @@ import jwtConfig from '../config/jwt'
 
 import JWT from 'jsonwebtoken'
 
-import TokenAccess from '@domain/infra/gateways/TokenAccess'
+import AccessToken, { Decoded } from '@domain/infra/gateways/AccessToken'
 
-export default class JtwAdapter implements TokenAccess {
+export default class JtwAdapter implements AccessToken {
     private readonly secret: string
     private readonly expiresIn: string
 
@@ -24,5 +24,9 @@ export default class JtwAdapter implements TokenAccess {
 
     async verify (token: string): Promise<string> {
       return JWT.verify(token, this.secret) as any
+    }
+
+    async decode (token: string): Promise<Decoded> {
+      return JWT.decode(token) as Decoded
     }
 }

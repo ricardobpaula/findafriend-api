@@ -1,6 +1,6 @@
 import { Controller } from '@domain/infra/gateways/Controller'
 import HttpRequest from '@domain/infra/gateways/HttpRequest'
-import { errorHttp, sucessHttp, HttpResponse } from '@domain/infra/gateways/HttpResponse'
+import { errorHttp, successHttp, HttpResponse } from '@domain/infra/gateways/HttpResponse'
 import CreateUser, { UserRequest } from './CreateUser'
 
 export default class CreateUserController implements Controller {
@@ -17,7 +17,7 @@ export default class CreateUserController implements Controller {
       if (userOrError.isLeft()) {
         return errorHttp(400, userOrError.value)
       }
-      return sucessHttp(201)
+      return successHttp(201)
     } catch (error) {
       return errorHttp(500, error)
     }

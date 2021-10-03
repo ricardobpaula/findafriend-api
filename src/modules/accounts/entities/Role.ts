@@ -13,7 +13,7 @@ export default class Role {
       this.role = role
     }
 
-    get value(): string {
+    get value (): string {
       return this.role
     }
 
@@ -21,8 +21,7 @@ export default class Role {
       return (Object.values(ValidRoles).includes(role as ValidRoles))
     }
 
-    static create (roleProps: string = ValidRoles.common): Either<InvalidRoleError,Role> {
-      
+    static create (roleProps: string = ValidRoles.common): Either<InvalidRoleError, Role> {
       if (!this.validateRoleType(roleProps)) {
         return left(new InvalidRoleError(roleProps))
       }

@@ -1,4 +1,4 @@
-import TokenAccess from '@domain/infra/gateways/TokenAccess'
+import AccessToken from '@domain/infra/gateways/AccessToken'
 import { Either, left, right } from '@domain/logic/Either'
 import UserRepository from '../../repositories/UserRepository'
 import AccessTokenError from './errors/AccessTokenError'
@@ -17,11 +17,11 @@ type AuthReponse = Either< EmailOrPasswordIncorrect | AccessTokenError, TokenRes
 
 export default class AuthUser {
     private readonly userRepository: UserRepository
-    private readonly tokenAccess: TokenAccess
+    private readonly AccessToken: AccessToken
 
-    constructor (userRepository: UserRepository, tokenAccess: TokenAccess) {
+    constructor (userRepository: UserRepository, AccessToken: AccessToken) {
       this.userRepository = userRepository
-      this.tokenAccess = tokenAccess
+      this.AccessToken = AccessToken
     }
 
     async execute ({ email, password }: AuthRequest): Promise<AuthReponse> {
@@ -35,7 +35,7 @@ export default class AuthUser {
         left(new EmailOrPasswordIncorrect())
       }
 
-      const token = await this.tokenAccess.getToken(user.getIdString())
+      const token = await this.AccessToken.getToken(user.getIdString())
 
       if (!token) {
         left(new AccessTokenError())
