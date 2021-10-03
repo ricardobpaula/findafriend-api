@@ -4,7 +4,7 @@ import UserRepository from '../../repositories/UserRepository'
 import AccessTokenError from './errors/AccessTokenError'
 import EmailOrPasswordIncorrect from './errors/EmailOrPasswordIncorrect'
 
-type AuthRequest = {
+export type AuthRequest = {
   email: string,
   password: string
 }
@@ -28,17 +28,17 @@ export default class AuthUser {
       const user = await this.userRepository.findByEmail(email)
 
       if (!user) {
-        left(new EmailOrPasswordIncorrect())
+        return left(new EmailOrPasswordIncorrect())
       }
 
       if (!await user.props.password.compare(password)) {
-        left(new EmailOrPasswordIncorrect())
+        return left(new EmailOrPasswordIncorrect())
       }
 
       const token = await this.AccessToken.getToken(user.getIdString())
 
       if (!token) {
-        left(new AccessTokenError())
+        return left(new AccessTokenError())
       }
 
       return right({ token })

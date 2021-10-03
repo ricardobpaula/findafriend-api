@@ -1,4 +1,4 @@
-import { errorHttp, HttpResponse, successHttp } from '@domain/infra/gateways/HttpResponse'
+import HttpResponse, { errorHttp, successHttp } from '@domain/infra/gateways/HttpResponse'
 import { Middleware } from '@domain/infra/gateways/Middleware'
 import AccessToken from '@domain/infra/gateways/AccessToken'
 import AccessDeniedError from '../errors/AccessDeniedError'

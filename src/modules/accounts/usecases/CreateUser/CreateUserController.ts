@@ -1,6 +1,6 @@
-import { Controller } from '@domain/infra/gateways/Controller'
+import Controller from '@domain/infra/gateways/Controller'
 import HttpRequest from '@domain/infra/gateways/HttpRequest'
-import { errorHttp, successHttp, HttpResponse } from '@domain/infra/gateways/HttpResponse'
+import HttpResponse, { errorHttp, successHttp } from '@domain/infra/gateways/HttpResponse'
 import CreateUser, { UserRequest } from './CreateUser'
 
 export default class CreateUserController implements Controller {
