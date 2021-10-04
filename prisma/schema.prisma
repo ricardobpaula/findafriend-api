@@ -15,6 +15,13 @@ enum Role {
   common
 }
 
+enum Size {
+  undefined
+  small
+  medium
+  big
+}
+
 model User {
   id          Int       @id @default(autoincrement())
   created_at  DateTime  @default(now())
@@ -27,6 +34,26 @@ model User {
   role        Role      @default(common)
   is_finding  Boolean   @default(true)
   avatar      String    @default("avatar.png")
+  pets        Pet[]
 
   @@map("users")
+}
+
+model Specie {
+  id          Int       @id @default(autoincrement())
+  name        String
+  pets        Pet[]
+  @@map("species")
+}
+
+model Pet {
+  id          Int       @id @default(autoincrement())
+  description String
+  adopted     Boolean   @default(false)
+  size        Size      @default(undefined)
+  owner       User      @relation(fields: [ownerId],references: [id])
+  ownerId     Int
+  specie      Specie    @relation(fields: [specieId],references: [id])
+  specieId    Int
+  @@map("pets")
 }
