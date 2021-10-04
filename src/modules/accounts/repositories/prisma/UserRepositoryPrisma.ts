@@ -1,16 +1,10 @@
 import { prisma } from '@infra/prisma/client'
 
 import User from '@modules/accounts/entities/User'
-import UserMapper from '@modules/accounts/mapper/UserMapper'
+import UserMapper from '@modules/accounts/mappers/UserMapper'
 import UserRepository from '../UserRepository'
 
 export default class UserRepositoryPrisma implements UserRepository {
-  async findById (id: number): Promise<User> {
-    const user = await prisma.user.findUnique({ where: { id } })
-
-    return UserMapper.toDomain(user)
-  }
-
   async createUser (user: User): Promise<User> {
     const data = await UserMapper.toPersistence(user.props)
 
@@ -19,13 +13,15 @@ export default class UserRepositoryPrisma implements UserRepository {
     return UserMapper.toDomain(newUser)
   }
 
+  async findById (id: number): Promise<User> {
+    const user = await prisma.user.findUnique({ where: { id } })
+
+    return user ? UserMapper.toDomain(user) : null
+  }
+
   async findByEmail (email: string): Promise<User|undefined> {
-    const userRaw = await prisma.user.findUnique({ where: { email } })
+    const user = await prisma.user.findUnique({ where: { email } })
 
-    if (userRaw) {
-      const user = UserMapper.toDomain(userRaw)
-
-      return user
-    }
+    return user ? UserMapper.toDomain(user) : null
   }
 }

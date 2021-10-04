@@ -3,5 +3,6 @@ export default interface HttpRequest<T = any> {
   header?: any,
   params?: any,
   query?: any,
-  cookies?: any
+  cookies?: any,
+  userId?: number
 }

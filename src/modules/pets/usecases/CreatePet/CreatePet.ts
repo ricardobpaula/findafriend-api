@@ -1,7 +1,7 @@
 import Pet from '../../entities/Pet/Pet'
 import PetRepository from '../../repositories/PetRepository'
 import SpecieRepository from '@modules/pets/repositories/SpecieRepository'
-import UserRepository from '@modules/accounts/repositories/UserRepository'
+// import UserRepository from '@modules/accounts/repositories/UserRepository'
 import { Either, left, right } from '@domain/logic/Either'
 import InvalidDescriptionError from '@modules/pets/entities/Pet/errors/InvalidDescriptionError'
 import InvalidSizeError from '@modules/pets/entities/Pet/errors/InvalidSizeError'
@@ -27,22 +27,23 @@ type PetResponse = Either<
 export default class CreatePet {
     private readonly petRepository: PetRepository
     private readonly specieRepository: SpecieRepository
-    private readonly userRepository: UserRepository
+    // private readonly userRepository: UserRepository
 
     constructor (
       petRepository: PetRepository,
-      specieRepository: SpecieRepository,
-      userRepository: UserRepository) {
+      specieRepository: SpecieRepository /*,
+      userRepository: UserRepository */) {
       this.petRepository = petRepository
       this.specieRepository = specieRepository
-      this.userRepository = userRepository
+      // this.userRepository = userRepository
     }
 
     async execute (request: PetRequest): Promise<PetResponse> {
-      const owner = await this.userRepository.findById(request.ownerId)
-      if (!owner) {
-        return left(new UserNotFoundError())
-      }
+      // TODO remove comments
+      // const owner = await this.userRepository.findById(request.ownerId)
+      // if (!owner) {
+      //   return left(new UserNotFoundError())
+      // }
 
       const specie = await this.specieRepository.findOneByName(request.specie)
 
@@ -63,7 +64,7 @@ export default class CreatePet {
 
       const petOrError = Pet.create({
         description: descriptionOrError.value,
-        ownerId: owner.id,
+        ownerId: request.ownerId,
         size: sizeOrError.value,
         specieId: specie.id,
         adopted: false

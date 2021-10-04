@@ -13,6 +13,8 @@ routes.use('/auth', sessionsRouter)
 
 routes.use(adapterMiddleware(makeEnsureAuthenticatedMiddleware()))
 
+routes.get('/', (req, res) => { res.json({ msg: 'Hello World' }) })
+
 routes.use('/pets', petsRouter)
 routes.use('/species', speciesRouter)
 
