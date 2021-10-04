@@ -5,7 +5,7 @@ import { Either, left, right } from '@domain/logic/Either'
 import InvalidNameError from '@modules/pets/entities/Specie/errors/InvalidNameError'
 import Name from '@modules/pets/entities/Specie/Name'
 
-type SpecieRequest = {
+export type SpecieRequest = {
   name: string
 }
 

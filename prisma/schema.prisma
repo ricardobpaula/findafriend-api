@@ -41,7 +41,7 @@ model User {
 
 model Specie {
   id          Int       @id @default(autoincrement())
-  name        String
+  name        String    @unique
   pets        Pet[]
   @@map("species")
 }

@@ -4,6 +4,7 @@ import { makeEnsureAuthenticatedMiddleware } from '../factories/middlewares/Ensu
 import usersRouter from './users.routes'
 import sessionsRouter from './sessions.routes'
 import petsRouter from './pets.routes'
+import speciesRouter from './species.routes'
 
 const routes = Router()
 
@@ -13,5 +14,6 @@ routes.use('/auth', sessionsRouter)
 routes.use(adapterMiddleware(makeEnsureAuthenticatedMiddleware()))
 
 routes.use('/pets', petsRouter)
+routes.use('/species', speciesRouter)
 
 export default routes
