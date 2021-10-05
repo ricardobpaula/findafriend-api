@@ -22,4 +22,10 @@ export default class SpecieRepositoryPrisma implements SpecieRepository {
 
     return species ? species.map(specie => SpecieMapper.toDomain(specie)) : null
   }
+
+  async findAll (): Promise<Specie[]> {
+    const species = await prisma.specie.findMany()
+
+    return species ? species.map(specie => SpecieMapper.toDomain(specie)) : null
+  }
 }

@@ -24,4 +24,8 @@ export default class SpecieRepositoryInMemory implements SpecieRepository {
     async findManyByName (names: string[]): Promise<Specie[]> {
       return names.map(name => this.items.find(item => item.props.name.value === name))
     }
+
+    async findAll (): Promise<Specie[]> {
+      return this.items
+    }
 }
