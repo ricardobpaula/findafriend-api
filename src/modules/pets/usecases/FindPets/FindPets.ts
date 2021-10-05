@@ -5,7 +5,7 @@ import SpecieRepository from '@modules/pets/repositories/SpecieRepository'
 export type FindPetsRequest = {
   offset: number,
   limit: number,
-  species?: string[],
+  species?: number[],
   size?: string
 }
 
@@ -22,18 +22,18 @@ export default class FindPets {
 
   async execute (params: FindPetsRequest): Promise<FindPetsResponse> {
     if (params.species) {
-      const species = await this.specieRepository.findManyByName(params.species)
-      if (species) {
-        const speciesIds = species.map(value => value.id)
+      // const species = await this.specieRepository.findManyByName(params.species)
+      // if (species) {
+      //   const speciesIds = species.map(value => value.id)
 
-        return await this.petRepository.find({
-          limit: params.limit,
-          offset: params.offset,
-          size: params?.size,
-          speciesIds: speciesIds
-        })
-      }
+      return await this.petRepository.find({
+        limit: params.limit,
+        offset: params.offset,
+        size: params?.size,
+        species: params.species
+      })
     }
+    // }
 
     return await this.petRepository.find({
       limit: params.limit,

@@ -69,7 +69,7 @@ describe('Find all pets usecase', () => {
 
   it('Should be received pet with specie equals dog', async () => {
     const findPets = new FindPets(petRepositoryInMemory, specieRepositoryInMemory)
-    const data = await findPets.execute({ limit: 5, offset: 0, species: ['dog'] })
+    const data = await findPets.execute({ limit: 5, offset: 0, species: [1] })
     expect(data.length > 0).toBeTruthy()
   })
 })
