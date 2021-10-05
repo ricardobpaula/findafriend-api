@@ -1,7 +1,10 @@
-import Specie from '@modules/pets/entities/Specie/Specie'
 import SpecieRepository from '@modules/pets/repositories/SpecieRepository'
 
-type SpeciesResponse = Specie[]
+export type SpecieResponse = {
+  id: number,
+  name: string
+}
+type GetAllSpeciesResponse = SpecieResponse[]
 
 export default class GetAllSpecies {
     private readonly specieRepository: SpecieRepository
@@ -9,9 +12,12 @@ export default class GetAllSpecies {
       this.specieRepository = specieRepository
     }
 
-    async execute (): Promise<SpeciesResponse> {
+    async execute (): Promise<GetAllSpeciesResponse> {
       const species = await this.specieRepository.findAll()
 
-      return species
+      return species.map(specie => ({
+        id: specie.id,
+        name: specie.props.name.value
+      }))
     }
 }
