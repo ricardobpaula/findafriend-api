@@ -5,7 +5,7 @@ import SpecieRepository from '../SpecieRepository'
 
 export default class SpecieRepositoryPrisma implements SpecieRepository {
   async createSpecie (specie: Specie): Promise<Specie> {
-    const data = await SpecieMapper.toPersistence(specie.props)
+    const data = SpecieMapper.toPersistence(specie.props)
 
     const newSpecie = await prisma.specie.create({ data })
 

@@ -20,7 +20,7 @@ export default class SpecieMapper {
     return specieOrError.value
   }
 
-  static async toPersistence (specie: SpecieProps) {
+  static toPersistence (specie: SpecieProps) {
     return {
       name: specie.name.value
     }

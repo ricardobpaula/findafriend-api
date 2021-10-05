@@ -32,7 +32,7 @@ export default class PetMapper {
     return petOrError.value
   }
 
-  static async toPersistence (pet: PetProps) {
+  static toPersistence (pet: PetProps) {
     return {
       description: pet.description.value,
       owner_id: pet.ownerId,

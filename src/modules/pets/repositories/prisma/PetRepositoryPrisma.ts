@@ -6,7 +6,7 @@ import PetRepository, { FindPetParams } from '../PetRepository'
 
 export default class PetRepositoryPrisma implements PetRepository {
   async createPet (pet: Pet): Promise<Pet> {
-    const data = await PetMapper.toPersistence(pet.props)
+    const data = PetMapper.toPersistence(pet.props)
 
     const newPet = await prisma.pet.create({ data })
 
