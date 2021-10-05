@@ -9,10 +9,13 @@ export type SpecieRequest = {
   name: string
 }
 
-type SpecieResponse = Either<InvalidNameError| SpecieAlreadyExists, Specie>
+type SpecieResponse = Either<
+  InvalidNameError |
+  SpecieAlreadyExists,
+  Specie>
 
 export default class CreateSpecie {
-    specieRepository: SpecieRepository
+    private readonly specieRepository: SpecieRepository
     constructor (specieRepository: SpecieRepository) {
       this.specieRepository = specieRepository
     }
