@@ -25,7 +25,6 @@ describe('Find all pets usecase', () => {
     const specieFactory = new SpecieFactory(specieRepositoryInMemory)
     const petFactory = new PetFactory(
       petRepositoryInMemory,
-      userRepositoryInMemory,
       specieRepositoryInMemory)
     const owner = await userFactory.execute()
     await specieFactory.execute('dog')

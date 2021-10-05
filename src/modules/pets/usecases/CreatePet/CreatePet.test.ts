@@ -31,7 +31,7 @@ describe('Usecase to create a new pet', () => {
 
   it('should be created a new pet', async () => {
     const petRepositoryInMemory = new PetRepositoryInMemory()
-    const createPet = new CreatePet(petRepositoryInMemory, specieRepositoryInMemory, userRepositoryInMemory)
+    const createPet = new CreatePet(petRepositoryInMemory, specieRepositoryInMemory)
 
     const pet = await createPet.execute({
       ownerId: owner.id,
