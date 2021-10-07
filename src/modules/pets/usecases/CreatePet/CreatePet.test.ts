@@ -41,4 +41,17 @@ describe('Usecase to create a new pet', () => {
     })
     expect(pet.isRight()).toBeTruthy()
   })
+
+  it('should be specie not found error', async () => {
+    const petRepositoryInMemory = new PetRepositoryInMemory()
+    const createPet = new CreatePet(petRepositoryInMemory, specieRepositoryInMemory)
+
+    const pet = await createPet.execute({
+      ownerId: owner.id,
+      specie: 'dogs',
+      description,
+      size
+    })
+    expect(pet.isLeft()).toBeTruthy()
+  })
 })

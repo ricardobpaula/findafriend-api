@@ -7,6 +7,6 @@ describe('Size Attribute', () => {
   })
   it('Should be not a valid size', () => {
     const sizeOrError = Size.create('smal')
-    expect(sizeOrError.isLeft()).toBeTruthy()
+    expect(sizeOrError.isRight()).toBeFalsy()
   })
 })
