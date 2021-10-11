@@ -20,7 +20,7 @@ export default class EnsureAuthenticatedMiddleware implements Middleware {
       const { accessToken } = request
       if (accessToken) {
         try {
-          const decoded = await this.accessToken.decode(accessToken)
+          const decoded = await this.accessToken.verify(accessToken)
 
           return successHttp(200, { userId: decoded.sub })
         } catch (error) {

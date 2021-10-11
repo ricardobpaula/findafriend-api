@@ -8,7 +8,7 @@ export default class SpecieRepositoryInMemory implements SpecieRepository {
       this.items = []
     }
 
-    async createSpecie (specie: Specie): Promise<Specie> {
+    async create (specie: Specie): Promise<Specie> {
       const specieOrError = Specie.create(specie.props, this.items.length + 1)
       if (specieOrError.isLeft()) {
         throw specieOrError.value
@@ -17,12 +17,12 @@ export default class SpecieRepositoryInMemory implements SpecieRepository {
       return specieOrError.value
     }
 
-    async findOneByName (name: string): Promise<Specie> {
-      return this.items.find(item => item.props.name.value === name)
+    async findByid (id: number): Promise<Specie> {
+      return this.items.find(item => item.id === id)
     }
 
-    async findManyByName (names: string[]): Promise<Specie[]> {
-      return names.map(name => this.items.find(item => item.props.name.value === name))
+    async findByName (name: string): Promise<Specie> {
+      return this.items.find(item => item.props.name.value === name)
     }
 
     async findAll (): Promise<Specie[]> {

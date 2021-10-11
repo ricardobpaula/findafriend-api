@@ -35,7 +35,7 @@ describe('Usecase to create a new pet', () => {
 
     const pet = await createPet.execute({
       ownerId: owner.id,
-      specie: specie.props.name.value,
+      specieId: specie.id,
       description,
       size
     })
@@ -48,7 +48,7 @@ describe('Usecase to create a new pet', () => {
 
     const pet = await createPet.execute({
       ownerId: owner.id,
-      specie: 'dogs',
+      specieId: 0,
       description,
       size
     })

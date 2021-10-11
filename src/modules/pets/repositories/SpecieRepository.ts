@@ -1,8 +1,8 @@
 import Specie from '../entities/Specie/Specie'
 
 export default interface SpecieRepository{
-    createSpecie(specie: Specie):Promise<Specie>
-    findOneByName(name: string): Promise<Specie>
-    findManyByName(names: string[]): Promise<Specie[]>
+    create(specie: Specie):Promise<Specie>
+    findByid(id: number):Promise<Specie>
+    findByName(name: string): Promise<Specie>
     findAll():Promise<Specie[]>
 }

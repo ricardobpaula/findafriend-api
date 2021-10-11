@@ -6,7 +6,7 @@ import CreatePet from '@modules/pets/usecases/CreatePet/CreatePet'
 type PetAttributes = {
     description: string,
     ownerId: number,
-    specie: string,
+    specieId: number,
     size: string
   }
 

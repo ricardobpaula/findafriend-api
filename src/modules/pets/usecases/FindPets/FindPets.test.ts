@@ -27,31 +27,31 @@ describe('Find all pets usecase', () => {
       petRepositoryInMemory,
       specieRepositoryInMemory)
     const owner = await userFactory.execute()
-    await specieFactory.execute('dog')
-    await specieFactory.execute('cat')
+    const dog = await specieFactory.execute('dog')
+    const cat = await specieFactory.execute('cat')
     await petFactory.execute({
       description,
       size: 'small',
       ownerId: owner.id,
-      specie: 'dog'
+      specieId: dog.id
     })
     await petFactory.execute({
       description,
       size: 'small',
       ownerId: owner.id,
-      specie: 'dog'
+      specieId: dog.id
     })
     await petFactory.execute({
       description,
       size: 'big',
       ownerId: owner.id,
-      specie: 'dog'
+      specieId: dog.id
     })
     await petFactory.execute({
       description,
       size: 'small',
       ownerId: owner.id,
-      specie: 'cat'
+      specieId: cat.id
     })
   })
 

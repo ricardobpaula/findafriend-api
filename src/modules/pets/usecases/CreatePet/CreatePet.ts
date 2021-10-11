@@ -12,7 +12,7 @@ import Size from '@modules/pets/entities/Pet/Size'
 type PetRequest = {
   description: string,
   ownerId: number,
-  specie: string,
+  specieId: number,
   size: string
 }
 
@@ -35,10 +35,10 @@ export default class CreatePet {
     }
 
     async execute (request: PetRequest): Promise<PetResponse> {
-      const specie = await this.specieRepository.findOneByName(request.specie)
+      const specie = await this.specieRepository.findByid(request.specieId)
 
       if (!specie) {
-        return left(new SpecieNotFoundError(request.specie))
+        return left(new SpecieNotFoundError())
       }
 
       const descriptionOrError = Description.create(request.description)
@@ -56,7 +56,7 @@ export default class CreatePet {
         description: descriptionOrError.value,
         ownerId: request.ownerId,
         size: sizeOrError.value,
-        specieId: specie.id,
+        specie,
         adopted: false
       })
 

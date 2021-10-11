@@ -21,7 +21,7 @@ export default class CreateSpecie {
     }
 
     async execute (request:SpecieRequest):Promise<SpecieResponse> {
-      const specieAlreadyExists = await this.specieRepository.findOneByName(request.name)
+      const specieAlreadyExists = await this.specieRepository.findByName(request.name)
 
       if (specieAlreadyExists) {
         return left(new SpecieAlreadyExists(request.name))
@@ -39,7 +39,7 @@ export default class CreateSpecie {
         return left(specieOrError.value)
       }
 
-      const specie = await this.specieRepository.createSpecie(specieOrError.value)
+      const specie = await this.specieRepository.create(specieOrError.value)
 
       return right(specie)
     }
