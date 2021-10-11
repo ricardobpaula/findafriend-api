@@ -6,12 +6,10 @@ import { FindPetsRequest } from '@modules/pets/usecases/FindPets/FindPets'
 import PetRepository from '../PetRepository'
 
 export default class PetRepositoryPrisma implements PetRepository {
-  async createPet (pet: Pet): Promise<Pet> {
+  async create (pet: Pet): Promise<void> {
     const data = PetMapper.toPersistence(pet.props)
 
-    const newPet = await prisma.pet.create({ data })
-
-    return PetMapper.toDomain(newPet)
+    await prisma.pet.create({ data })
   }
 
   async find (params: FindPetsRequest): Promise<Pet[]> {
@@ -21,9 +19,13 @@ export default class PetRepositoryPrisma implements PetRepository {
       where: {
         specie_id: { in: params?.species },
         size: params?.size as Size
+      },
+      include: {
+        specie: true
       }
     })
+    // const pets = await prisma.pet.findMany({ include: { specie: true } })
 
-    return pets ? pets.map(pet => PetMapper.toDomain(pet)) : null
+    return pets ? pets.map(pet => PetMapper.toDomain({ pet, specie: pet.specie })) : null
   }
 }

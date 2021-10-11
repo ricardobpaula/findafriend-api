@@ -1,13 +1,25 @@
-import { Pet as PersistencePet, Size as PersistenceSize } from '@prisma/client'
+import {
+  Pet as PersistencePet,
+  Specie as SpeciePersistence,
+  Size as PersistenceSize
+} from '@prisma/client'
 import Description from '../entities/Pet/Description'
 import Pet from '../entities/Pet/Pet'
 import PetProps from '../entities/Pet/PetProps'
 import Size from '../entities/Pet/Size'
+import Name from '../entities/Specie/Name'
+import Specie from '../entities/Specie/Specie'
+
+type PersistenceProps = {
+  pet: PersistencePet,
+  specie: SpeciePersistence
+}
 
 export default class PetMapper {
-  static toDomain (raw: PersistencePet): Pet {
-    const sizeOrError = Size.create(raw.size)
-    const descriptionOrError = Description.create(raw.description)
+  static toDomain (raw: PersistenceProps): Pet {
+    const sizeOrError = Size.create(raw.pet.size)
+    const descriptionOrError = Description.create(raw.pet.description)
+    const nameOrError = Name.create(raw.specie.name)
 
     if (sizeOrError.isLeft()) {
       throw sizeOrError.value
@@ -17,13 +29,25 @@ export default class PetMapper {
       throw descriptionOrError.value
     }
 
+    if (nameOrError.isLeft()) {
+      throw nameOrError.value
+    }
+
+    const specieOrError = Specie.create(
+      { name: nameOrError.value },
+      raw.specie.id)
+
+    if (specieOrError.isLeft()) {
+      throw specieOrError.value
+    }
+
     const petOrError = Pet.create({
       description: descriptionOrError.value,
-      ownerId: raw.owner_id,
-      specieId: raw.specie_id,
+      ownerId: raw.pet.owner_id,
+      specie: specieOrError.value,
       size: sizeOrError.value,
-      adopted: raw.adopted
-    })
+      adopted: raw.pet.adopted
+    }, raw.pet.id)
 
     if (petOrError.isLeft()) {
       throw petOrError.value
@@ -36,7 +60,7 @@ export default class PetMapper {
     return {
       description: pet.description.value,
       owner_id: pet.ownerId,
-      specie_id: pet.specieId,
+      specie_id: pet.specie.id,
       size: pet.size.value as PersistenceSize,
       adopted: pet?.adopted
     }

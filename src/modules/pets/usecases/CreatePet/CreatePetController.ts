@@ -5,7 +5,7 @@ import CreatePet from './CreatePet'
 
 type PetRequestBody = {
         description: string,
-        specie: string,
+        specie: number,
         size: string
     }
 
@@ -20,7 +20,7 @@ export default class CreatePetController implements Controller {
         const petOrError = await this.createPet.execute({
           description: body.description,
           size: body.size,
-          specie: body.specie,
+          specieId: body.specie,
           ownerId: userId
         })
         if (petOrError.isLeft()) {

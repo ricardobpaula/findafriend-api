@@ -9,13 +9,12 @@ export default class PetRepositoryInMemory implements PetRepository {
     this.items = []
   }
 
-  async createPet (pet: Pet): Promise<Pet> {
+  async create (pet: Pet): Promise<void> {
     const petOrError = Pet.create(pet.props, this.items.length + 1)
     if (petOrError.isLeft()) {
       throw petOrError.value
     }
     this.items.push(petOrError.value)
-    return petOrError.value
   }
 
   async find (params: FindPetsRequest): Promise<Pet[]> {

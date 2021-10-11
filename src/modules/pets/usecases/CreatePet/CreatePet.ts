@@ -64,8 +64,8 @@ export default class CreatePet {
         return left(petOrError.value)
       }
 
-      const pet = await this.petRepository.createPet(petOrError.value)
+      await this.petRepository.create(petOrError.value)
 
-      return right(pet)
+      return right(petOrError.value)
     }
 }

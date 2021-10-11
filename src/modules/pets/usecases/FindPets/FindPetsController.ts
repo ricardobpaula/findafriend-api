@@ -13,8 +13,8 @@ export default class FindPetsController implements Controller {
     // TODO validar parametros
 
     try {
-      const offset = query.offset ? query.offset : 1
-      const limit = query.limit ? query.limit : 5
+      const offset = query.offset ? parseInt(query.offset) : 0
+      const limit = query.limit ? parseInt(query.limit) : 5
       const species = query?.species?.split(',').map((id:string) => (parseInt(id)))
       const pets = await this.findPets.execute({
         offset,

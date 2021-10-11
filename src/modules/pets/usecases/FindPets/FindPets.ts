@@ -9,7 +9,17 @@ export type FindPetsRequest = {
   size?: string
 }
 
-type FindPetsResponse = Pet[]
+type PetResponse = {
+  id: number,
+  description: string,
+  size: string,
+  specie: {
+    id: number,
+    name: string
+  }
+}
+
+type FindPetsResponse = PetResponse[]
 
 export default class FindPets {
   private readonly petRepository: PetRepository
@@ -21,24 +31,31 @@ export default class FindPets {
   }
 
   async execute (params: FindPetsRequest): Promise<FindPetsResponse> {
-    if (params.species) {
-      // const species = await this.specieRepository.findManyByName(params.species)
-      // if (species) {
-      //   const speciesIds = species.map(value => value.id)
+    let pets: Pet[]
 
-      return await this.petRepository.find({
+    if (params.species) {
+      pets = await this.petRepository.find({
         limit: params.limit,
         offset: params.offset,
         size: params?.size,
         species: params.species
       })
+    } else {
+      pets = await this.petRepository.find({
+        limit: params.limit,
+        offset: params.offset,
+        size: params?.size
+      })
     }
-    // }
 
-    return await this.petRepository.find({
-      limit: params.limit,
-      offset: params.offset,
-      size: params?.size
-    })
+    return pets.map(pets => ({
+      id: pets.id,
+      description: pets.props.description.value,
+      size: pets.props.size.value,
+      specie: {
+        id: pets.props.specie.id,
+        name: pets.props.specie.props.name.value
+      }
+    }))
   }
 }
