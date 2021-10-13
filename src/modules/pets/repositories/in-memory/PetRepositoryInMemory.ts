@@ -20,7 +20,7 @@ export default class PetRepositoryInMemory implements PetRepository {
   async find (params: FindPetsRequest): Promise<Pet[]> {
     if (params.species) {
       return this.items.filter(pet => params.species.includes(pet.props.specie.id) &&
-        pet.props.adopted === false &&
+        (params.adopted === undefined ? true : pet.props.adopted === params.adopted) &&
         (params.size === undefined ? true : pet.props.size.value === params.size)
       ).splice(params.offset, params.limit)
     }
@@ -28,5 +28,9 @@ export default class PetRepositoryInMemory implements PetRepository {
     return this.items.filter(pet => pet.props.adopted === false &&
       (params.size === undefined ? true : pet.props.size.value === params.size)
     ).splice(params.offset, params.limit)
+  }
+
+  async findById (id: number): Promise<Pet> {
+    return this.items[id - 1]
   }
 }

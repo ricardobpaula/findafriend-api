@@ -18,14 +18,23 @@ export default class PetRepositoryPrisma implements PetRepository {
       skip: params.offset,
       where: {
         specie_id: { in: params?.species },
-        size: params?.size as Size
+        size: params?.size as Size,
+        adopted: params?.adopted
       },
       include: {
         specie: true
       }
     })
-    // const pets = await prisma.pet.findMany({ include: { specie: true } })
 
     return pets ? pets.map(pet => PetMapper.toDomain({ pet, specie: pet.specie })) : null
+  }
+
+  async findById (id: number): Promise<Pet> {
+    const pet = await prisma.pet.findUnique({
+      where: { id },
+      include: { specie: true }
+    })
+
+    return pet ? PetMapper.toDomain({ pet, specie: pet.specie }) : null
   }
 }
