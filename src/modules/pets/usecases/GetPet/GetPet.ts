@@ -16,7 +16,7 @@ type ShowPetResponse = {
   }
 }
 
-export default class ShowPet {
+export default class GetPet {
   private readonly petRepository: PetRepository
   constructor (petRepository: PetRepository) {
     this.petRepository = petRepository

@@ -3,7 +3,7 @@ import SpecieRepositoryInMemory from '@modules/pets/repositories/in-memory/Speci
 import PetRepository from '@modules/pets/repositories/PetRepository'
 import PetFactory from '@test/factories/PetFactory'
 import SpecieFactory from '@test/factories/SpecieFactory'
-import ShowPet from './ShowPet'
+import GetPet from './GetPet'
 
 let petRepository: PetRepository
 
@@ -23,8 +23,8 @@ describe('Show unique pet', () => {
   })
 
   it('Should be show attributes from a pet', async () => {
-    const showPet = new ShowPet(petRepository)
-    const pet = await showPet.execute({ id: 1 })
+    const getPet = new GetPet(petRepository)
+    const pet = await getPet.execute({ id: 1 })
     expect(!!pet).toBeTruthy()
   })
 })
