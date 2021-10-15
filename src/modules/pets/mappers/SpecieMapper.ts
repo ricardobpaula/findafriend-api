@@ -11,7 +11,12 @@ export default class SpecieMapper {
       throw nameOrError.value
     }
 
-    const specieOrError = Specie.create({ name: nameOrError.value }, raw.id)
+    const specieOrError = Specie.create({
+      name: nameOrError.value
+    },
+    raw.id,
+    raw.created_at,
+    raw.updated_at)
 
     if (specieOrError.isLeft()) {
       throw specieOrError.value

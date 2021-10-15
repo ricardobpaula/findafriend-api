@@ -4,12 +4,21 @@ import InvalidNameError from './errors/InvalidNameError'
 import SpecieProps from './SpecieProps'
 
 export default class Specie extends Entity<SpecieProps> {
-  private constructor (props: SpecieProps, id?: number) {
-    super(props, id)
+  private constructor (
+    props: SpecieProps,
+    id?: number,
+    createdAt?: Date,
+    updatedAt?: Date) {
+    super(props, id, createdAt, updatedAt)
   }
 
-  static create (props: SpecieProps, id?:number): Either<InvalidNameError, Specie> {
-    const specie = new Specie(props, id)
+  static create (
+    props: SpecieProps,
+    id?:number,
+    createdAt?: Date,
+    updatedAt?: Date
+  ): Either<InvalidNameError, Specie> {
+    const specie = new Specie(props, id, createdAt, updatedAt)
 
     return right(specie)
   }

@@ -5,12 +5,21 @@ import InvalidSizeError from './errors/InvalidSizeError'
 import PetProps from './PetProps'
 
 export default class Pet extends Entity<PetProps> {
-  private constructor (props: PetProps, id?:number) {
-    super(props, id)
+  private constructor (
+    props: PetProps,
+    id?:number,
+    createdAt?: Date,
+    updatedAt?: Date
+  ) {
+    super(props, id, createdAt, updatedAt)
   }
 
-  static create (props: PetProps, id?:number): Either<InvalidDescriptionError | InvalidSizeError, Pet> {
-    const pet = new Pet(props, id)
+  static create (
+    props: PetProps,
+    id?:number,
+    createdAt?: Date,
+    updatedAt?: Date): Either<InvalidDescriptionError | InvalidSizeError, Pet> {
+    const pet = new Pet(props, id, createdAt, updatedAt)
 
     return right(pet)
   }

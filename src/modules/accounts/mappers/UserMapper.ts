@@ -38,7 +38,10 @@ export default class UserMapper {
       isFinding: raw.is_finding,
       avatar: raw.avatar,
       role: roleOrError.value
-    }, raw.id)
+    },
+    raw.id,
+    raw.created_at,
+    raw.updated_at)
 
     if (userOrError.isLeft()) {
       throw userOrError.value

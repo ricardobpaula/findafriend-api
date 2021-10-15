@@ -35,7 +35,9 @@ export default class PetMapper {
 
     const specieOrError = Specie.create(
       { name: nameOrError.value },
-      raw.specie.id)
+      raw.specie.id,
+      raw.specie.created_at,
+      raw.specie.updated_at)
 
     if (specieOrError.isLeft()) {
       throw specieOrError.value
@@ -47,7 +49,10 @@ export default class PetMapper {
       specie: specieOrError.value,
       size: sizeOrError.value,
       adopted: raw.pet.adopted
-    }, raw.pet.id)
+    },
+    raw.pet.id,
+    raw.pet.created_at,
+    raw.pet.updated_at)
 
     if (petOrError.isLeft()) {
       throw petOrError.value

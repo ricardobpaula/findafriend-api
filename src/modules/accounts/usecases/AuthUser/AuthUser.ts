@@ -16,7 +16,8 @@ type UserResponse = {
     email: string,
     isFinding: boolean,
     avatar: string,
-    role: string
+    role: string,
+    since: Date
 }
 
 type TokenResponse = {
@@ -59,7 +60,8 @@ export default class AuthUser {
         phone: user.props.phone.value,
         avatar: user.props.avatar,
         isFinding: user.props.isFinding,
-        role: user.props.role.value
+        role: user.props.role.value,
+        since: user.createdAt
       } as UserResponse
 
       return right({ user: userResponse, token })

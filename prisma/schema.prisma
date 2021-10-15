@@ -41,6 +41,8 @@ model User {
 
 model Specie {
   id          Int       @id @default(autoincrement())
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
   name        String    @unique
   pets        Pet[]
   @@map("species")
@@ -48,6 +50,8 @@ model Specie {
 
 model Pet {
   id          Int       @id @default(autoincrement())
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
   description String
   adopted     Boolean   @default(false)
   size        Size      @default(undefined)
