@@ -56,19 +56,19 @@ describe('Find all pets usecase', () => {
   })
 
   it('Should be received to 2 pets', async () => {
-    const findPets = new FindPets(petRepositoryInMemory, specieRepositoryInMemory)
+    const findPets = new FindPets(petRepositoryInMemory)
     const data = await findPets.execute({ limit: 2, offset: 0 })
     expect(data.length === 2).toBeTruthy()
   })
 
   it('Should be received pet with size equals small', async () => {
-    const findPets = new FindPets(petRepositoryInMemory, specieRepositoryInMemory)
+    const findPets = new FindPets(petRepositoryInMemory)
     const data = await findPets.execute({ limit: 5, offset: 0, size: 'small' })
     expect(data.length > 0).toBeTruthy()
   })
 
   it('Should be received pet with specie equals dog', async () => {
-    const findPets = new FindPets(petRepositoryInMemory, specieRepositoryInMemory)
+    const findPets = new FindPets(petRepositoryInMemory)
     const data = await findPets.execute({ limit: 5, offset: 0, species: [1] })
     expect(data.length > 0).toBeTruthy()
   })
