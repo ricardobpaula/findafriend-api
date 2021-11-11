@@ -3,10 +3,6 @@ import { Middleware } from '@domain/infra/gateways/Middleware'
 import AccessToken from '@domain/infra/gateways/AccessToken'
 import AccessDeniedError from '../errors/AccessDeniedError'
 
-type EnsureAuthenticatedMiddlewareRequest = {
-  accessToken: string
-}
-
 export default class EnsureAuthenticatedMiddleware implements Middleware {
   private accessToken: AccessToken
   constructor (accessToken: AccessToken) {
@@ -14,10 +10,10 @@ export default class EnsureAuthenticatedMiddleware implements Middleware {
   }
 
   async handle (
-    request: EnsureAuthenticatedMiddlewareRequest
+    request: any
   ):Promise<HttpResponse> {
     try {
-      const { accessToken } = request
+      const accessToken = request.headers?.['x-access-token']
       if (accessToken) {
         try {
           const decoded = await this.accessToken.verify(accessToken)

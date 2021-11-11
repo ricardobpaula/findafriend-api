@@ -3,20 +3,20 @@
     "target": "ES2017",
     "module": "commonjs",
     "outDir": "./dist",
+    "noEmit": true,
     "strict": false,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
     "paths": {
-      "@modules/*": ["./src/modules/*"],
-      "@config/*": ["./src/config/*"],
-      "@infra/*": ["./src/infra/*"],
-      "@domain/*": ["./src/domain/*"],
-      "@test/*": ["./src/test/*"]
+      "@modules/*": ["modules/*"],
+      "@config/*": ["config/*"],
+      "@infra/*": ["infra/*"],
+      "@domain/*": ["domain/*"],
+      "@test/*": ["test/*"]
     }
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src"]
 }

@@ -3,12 +3,7 @@ import { Middleware } from '@domain/infra/gateways/Middleware'
 
 const adapterMiddleware = (middleware :Middleware) => {
   return async (request: Request, response: Response, next: NextFunction) => {
-    const requestData = {
-      accessToken: request.headers?.['x-access-token'],
-      ...(request.headers || {})
-    }
-
-    const httpResponse = await middleware.handle(requestData, request.body)
+    const httpResponse = await middleware.handle(request)
 
     if (httpResponse === false) {
       return response.status(200).send()

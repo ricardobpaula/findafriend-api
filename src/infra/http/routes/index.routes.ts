@@ -1,6 +1,6 @@
 import adapterMiddleware from '@infra/gateways/ExpressMiddlewareAdapter'
 import { Router } from 'express'
-import { makeEnsureAuthenticatedMiddleware } from '../factories/middlewares/EnsureAuthenticatedMiddlewareFactory'
+import makeEnsureAuthenticatedMiddleware from '../factories/middlewares/EnsureAuthenticatedMiddlewareFactory'
 import usersRouter from './users.routes'
 import sessionsRouter from './sessions.routes'
 import petsRouter from './pets.routes'
