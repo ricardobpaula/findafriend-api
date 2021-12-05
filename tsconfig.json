@@ -5,18 +5,17 @@
     "outDir": "./dist",
     "noEmit": true,
     "strict": false,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "paths": {
-      "@modules/*": ["modules/*"],
-      "@config/*": ["config/*"],
-      "@infra/*": ["infra/*"],
-      "@domain/*": ["domain/*"],
-      "@test/*": ["test/*"]
+      "@core/*": ["src/core/*"],
+      "@config/*": ["src/config/*"],
+      "@infra/*": ["src/infra/*"],
+      "@domain/*": ["src/domain/*"],
+      "@test/*": ["src/test/*"]
     }
-  },
-  "include": ["src"]
+  }
 }

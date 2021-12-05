@@ -1,7 +1,7 @@
 import Controller from '@domain/infra/gateways/Controller'
-import UserRepositoryPrisma from '@modules/accounts/repositories/prisma/UserRepositoryPrisma'
-import CreateUser from '@modules/accounts/usecases/CreateUser/CreateUser'
-import CreateUserController from '@modules/accounts/usecases/CreateUser/CreateUserController'
+import UserRepositoryPrisma from '@core/repositories/prisma/UserRepositoryPrisma'
+import CreateUser from '@core/usecases/CreateUser/CreateUser'
+import CreateUserController from '@core/usecases/CreateUser/CreateUserController'
 
 export default function makeCreateUserController (): Controller {
   const userRepository = new UserRepositoryPrisma()

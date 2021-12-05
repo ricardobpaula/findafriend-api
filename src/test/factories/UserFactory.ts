@@ -1,6 +1,6 @@
-import User from '@modules/accounts/entities/User'
-import UserRepository from '@modules/accounts/repositories/UserRepository'
-import CreateUser from '@modules/accounts/usecases/CreateUser/CreateUser'
+import User from '@core/entities/User/User'
+import UserRepository from '@core/repositories/UserRepository'
+import CreateUser from '@core/usecases/CreateUser/CreateUser'
 
 export default class UserFactory {
     private readonly userRepository: UserRepository

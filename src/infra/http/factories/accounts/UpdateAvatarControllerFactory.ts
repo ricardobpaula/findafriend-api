@@ -1,7 +1,7 @@
 import Controller from '@domain/infra/gateways/Controller'
-import UserRepositoryPrisma from '@modules/accounts/repositories/prisma/UserRepositoryPrisma'
-import UpdateAvatar from '@modules/accounts/usecases/UpdateAvatar/UpdateAvatar'
-import UpdateAvatarController from '@modules/accounts/usecases/UpdateAvatar/UpdateAvatarController'
+import UserRepositoryPrisma from '@core/repositories/prisma/UserRepositoryPrisma'
+import UpdateAvatar from '@core/usecases/UpdateAvatar/UpdateAvatar'
+import UpdateAvatarController from '@core/usecases/UpdateAvatar/UpdateAvatarController'
 
 export default function makeUpdateAvatarController (): Controller {
   const userRepository = new UserRepositoryPrisma()

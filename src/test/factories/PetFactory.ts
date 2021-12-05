@@ -1,7 +1,7 @@
-import Pet from '@modules/pets/entities/Pet/Pet'
-import PetRepository from '@modules/pets/repositories/PetRepository'
-import SpecieRepository from '@modules/pets/repositories/SpecieRepository'
-import CreatePet from '@modules/pets/usecases/CreatePet/CreatePet'
+import Pet from '@core/entities/Pet/Pet'
+import PetRepository from '@core/repositories/PetRepository'
+import SpecieRepository from '@core/repositories/SpecieRepository'
+import CreatePet from '@core/usecases/CreatePet/CreatePet'
 
 type PetAttributes = {
     description: string,

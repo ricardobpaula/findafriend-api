@@ -1,7 +1,7 @@
 import Controller from '@domain/infra/gateways/Controller'
-import PetRepositoryPrisma from '@modules/pets/repositories/prisma/PetRepositoryPrisma'
-import GetPet from '@modules/pets/usecases/GetPet/GetPet'
-import GetPetController from '@modules/pets/usecases/GetPet/GetPetController'
+import PetRepositoryPrisma from '@core/repositories/prisma/PetRepositoryPrisma'
+import GetPet from '@core/usecases/GetPet/GetPet'
+import GetPetController from '@core/usecases/GetPet/GetPetController'
 
 export default function makeGetPetController (): Controller {
   const petRepository = new PetRepositoryPrisma()

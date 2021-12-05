@@ -1,7 +1,7 @@
 import Controller from '@domain/infra/gateways/Controller'
-import SpecieRepositoryPrisma from '@modules/pets/repositories/prisma/SpecieRepositoryPrisma'
-import CreateSpecie from '@modules/pets/usecases/CreateSpecie/CreateSpecie'
-import CreateSpecieController from '@modules/pets/usecases/CreateSpecie/CreateSpecieController'
+import SpecieRepositoryPrisma from '@core/repositories/prisma/SpecieRepositoryPrisma'
+import CreateSpecie from '@core/usecases/CreateSpecie/CreateSpecie'
+import CreateSpecieController from '@core/usecases/CreateSpecie/CreateSpecieController'
 
 export default function makeCreateSpecieController ():Controller {
   const specieRepository = new SpecieRepositoryPrisma()

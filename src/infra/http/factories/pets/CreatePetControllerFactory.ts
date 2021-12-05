@@ -1,8 +1,8 @@
 import Controller from '@domain/infra/gateways/Controller'
-import PetRepositoryPrisma from '@modules/pets/repositories/prisma/PetRepositoryPrisma'
-import SpecieRepositoryPrisma from '@modules/pets/repositories/prisma/SpecieRepositoryPrisma'
-import CreatePet from '@modules/pets/usecases/CreatePet/CreatePet'
-import CreatePetController from '@modules/pets/usecases/CreatePet/CreatePetController'
+import PetRepositoryPrisma from '@core/repositories/prisma/PetRepositoryPrisma'
+import SpecieRepositoryPrisma from '@core/repositories/prisma/SpecieRepositoryPrisma'
+import CreatePet from '@core/usecases/CreatePet/CreatePet'
+import CreatePetController from '@core/usecases/CreatePet/CreatePetController'
 
 export default function makeCreatePetController () :Controller {
   const petRepository = new PetRepositoryPrisma()

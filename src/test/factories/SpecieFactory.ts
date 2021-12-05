@@ -1,6 +1,6 @@
-import Specie from '@modules/pets/entities/Specie/Specie'
-import SpecieRepository from '@modules/pets/repositories/SpecieRepository'
-import CreateSpecie from '@modules/pets/usecases/CreateSpecie/CreateSpecie'
+import Specie from '@core/entities/Specie/Specie'
+import SpecieRepository from '@core/repositories/SpecieRepository'
+import CreateSpecie from '@core/usecases/CreateSpecie/CreateSpecie'
 
 export default class SpecieFactory {
     private readonly specieRepository: SpecieRepository

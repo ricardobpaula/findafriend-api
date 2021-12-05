@@ -1,13 +1,11 @@
 import Controller from '@domain/infra/gateways/Controller'
-import PetRepositoryPrisma from '@modules/pets/repositories/prisma/PetRepositoryPrisma'
-import SpecieRepositoryPrisma from '@modules/pets/repositories/prisma/SpecieRepositoryPrisma'
-import FindPets from '@modules/pets/usecases/FindPets/FindPets'
-import FindPetsController from '@modules/pets/usecases/FindPets/FindPetsController'
+import PetRepositoryPrisma from '@core/repositories/prisma/PetRepositoryPrisma'
+import FindPets from '@core/usecases/FindPets/FindPets'
+import FindPetsController from '@core/usecases/FindPets/FindPetsController'
 
 export default function makeFindPetsController ():Controller {
   const petRepository = new PetRepositoryPrisma()
-  const specieRepository = new SpecieRepositoryPrisma()
-  const findPets = new FindPets(petRepository, specieRepository)
+  const findPets = new FindPets(petRepository)
   const findPetsController = new FindPetsController(findPets)
 
   return findPetsController
