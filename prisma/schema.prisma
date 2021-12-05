@@ -33,9 +33,9 @@ model User {
   password    String
   role        Role      @default(common)
   is_finding  Boolean   @default(true)
-  avatar      String    @default("avatar.png")
   pets        Pet[]
-
+  avatar      Photo?     @relation(fields: [avatar_id],references: [id])
+  avatar_id   Int
   @@map("users")
 }
 
@@ -59,5 +59,29 @@ model Pet {
   owner_id     Int
   specie      Specie    @relation(fields: [specie_id],references: [id])
   specie_id    Int
+  photos      PhotosOnPet[]
   @@map("pets")
+}
+
+model Photo {
+  id          Int       @id @default(autoincrement())
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  name        String
+  size        Decimal
+  path        String
+  date        DateTime
+  pets        PhotosOnPet[]
+  user        User?
+  @@map("photos")
+}
+
+model PhotosOnPet {
+  photo       Photo     @relation(fields: [photo_id],references:[id])
+  photo_id    Int
+  pet         Pet       @relation(fields: [pet_id],references:[id])
+  pet_id      Int
+  assignedAt  DateTime  @default(now())
+  @@id([photo_id,pet_id])
+  @@map("photos_on_pet")
 }
