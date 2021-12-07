@@ -69,7 +69,6 @@ export default class CreateUser {
       const userOrError = User.create({
         firstName: request.firstName,
         lastName: request.lastName,
-        avatar: request?.avatar,
         isFinding: request?.isFinding,
         phone: phoneOrError.value,
         email: emailOrError.value,

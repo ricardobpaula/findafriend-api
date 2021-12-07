@@ -35,7 +35,7 @@ model User {
   is_finding  Boolean   @default(true)
   pets        Pet[]
   avatar      Photo?     @relation(fields: [avatar_id],references: [id])
-  avatar_id   Int
+  avatar_id   Int?
   @@map("users")
 }
 
