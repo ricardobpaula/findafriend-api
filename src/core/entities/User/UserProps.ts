@@ -1,4 +1,4 @@
-import Avatar from '../Avatar/Avatar'
+import Photo from '../Photo/Photo'
 import Email from './Email'
 import Password from './Password'
 import Phone from './Phone'
@@ -11,6 +11,6 @@ export default interface UserProps {
     email: Email
     password: Password
     isFinding?: boolean
-    avatar?: Avatar
+    avatar?: Photo
     role?: Role
 }

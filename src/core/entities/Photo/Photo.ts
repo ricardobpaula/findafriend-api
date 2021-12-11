@@ -1,9 +1,9 @@
 import Entity from '@domain/entities/Entity'
-import AvatarProps from './AvatarProps'
+import PhotoProps from './PhotoProps'
 
-export default class Avatar extends Entity<AvatarProps> {
+export default class Photo extends Entity<PhotoProps> {
   private constructor (
-    props: AvatarProps,
+    props: PhotoProps,
     id?: number,
     createdAt?: Date,
     updatedAt?:Date) {
@@ -11,13 +11,13 @@ export default class Avatar extends Entity<AvatarProps> {
   }
 
   static create (
-    props: AvatarProps,
+    props: PhotoProps,
     id?: number,
     createdAt?: Date,
     updatedAt?:Date
-  ): Avatar {
-    const avatar = new Avatar(props, id, createdAt, updatedAt)
+  ): Photo {
+    const photo = new Photo(props, id, createdAt, updatedAt)
 
-    return avatar
+    return photo
   }
 }

@@ -1,5 +1,6 @@
 import { File } from '@domain/infra/gateways/UploadFileManager'
 import UserRepository from '@core/repositories/UserRepository'
+import Photo from '@core/entities/Photo/Photo'
 
 export type UpdateAvatarRequest = {
     photo: File,
@@ -14,7 +15,18 @@ export default class UpdateAvatar {
     }
 
     async execute ({ photo, userId }: UpdateAvatarRequest) {
-      // TODO implements functionality
-      console.log('fake save url')
+      const avatarExists = await this.userRepository.findAvatarByOwner(userId)
+      if (avatarExists) {
+        const avatar = Photo.create(
+          photo,
+          avatarExists.id,
+          avatarExists.createdAt,
+          avatarExists.updatedAt
+        )
+        await this.userRepository.updateAvatar(avatar, userId)
+      } else {
+        const avatar = Photo.create(photo)
+        await this.userRepository.createAvatar(avatar, userId)
+      }
     }
 }

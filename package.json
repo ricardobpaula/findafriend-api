@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "dev": "tsnd --respawn --transpile-only --ignore-watch node_modules --exit-child --clear -r tsconfig-paths/register src/infra/http/server.ts",
+    "db": "prisma studio",
     "test": "jest",
     "lint": "eslint src --ext ts --ignore-path .gitignore ."
   },

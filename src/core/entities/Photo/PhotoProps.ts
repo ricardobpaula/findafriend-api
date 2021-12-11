@@ -1,4 +1,4 @@
-export default interface AvatarProps {
+export default interface PhotoProps {
   name: string,
   size: number,
   path: string,

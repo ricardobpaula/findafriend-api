@@ -5,7 +5,7 @@ import User from '../entities/User/User'
 import Role from '../entities/User/Role'
 import UserProps from '../entities/User/UserProps'
 import PasswordFactory from '../factories/PasswordFactory'
-import Avatar from '@core/entities/Avatar/Avatar'
+import Photo from '@core/entities/Photo/Photo'
 
 type PersistenceProps = {
   user: PersistenceUser,
@@ -21,7 +21,7 @@ export default class UserMapper {
     const avatar = (
       !raw.photo
         ? undefined
-        : Avatar.create({
+        : Photo.create({
           date: raw.photo?.date,
           name: raw.photo?.name,
           path: raw.photo?.path,
