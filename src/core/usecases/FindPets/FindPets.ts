@@ -9,6 +9,14 @@ export type FindPetsRequest = {
   adopted?: boolean
 }
 
+type PhotoResponse = {
+  id: number,
+  name: string,
+  path: string,
+  size: number,
+  date: Date
+}
+
 type PetResponse = {
   id: number,
   description: string,
@@ -17,7 +25,8 @@ type PetResponse = {
   specie: {
     id: number,
     name: string
-  }
+  },
+  photos?: PhotoResponse[]
 }
 
 type FindPetsResponse = PetResponse[]
@@ -49,15 +58,22 @@ export default class FindPets {
       })
     }
 
-    return pets.map(pets => ({
-      id: pets.id,
-      description: pets.props.description.value,
-      size: pets.props.size.value,
-      adopted: pets.props.adopted,
+    return pets.map(pet => ({
+      id: pet.id,
+      description: pet.props.description.value,
+      size: pet.props.size.value,
+      adopted: pet.props.adopted,
       specie: {
-        id: pets.props.specie.id,
-        name: pets.props.specie.props.name.value
-      }
+        id: pet.props.specie.id,
+        name: pet.props.specie.props.name.value
+      },
+      photos: pet.props?.photos?.map(photo => ({
+        id: photo.id,
+        name: photo.props.name,
+        path: photo.props.path,
+        size: photo.props.size,
+        date: photo.props.date
+      }))
     }))
   }
 }

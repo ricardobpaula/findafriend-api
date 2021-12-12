@@ -1,7 +1,9 @@
+import Photo from '@core/entities/Photo/Photo'
 import {
   Pet as PersistencePet,
-  Specie as SpeciePersistence,
-  Size as PersistenceSize
+  Specie as PersistenceSpecie,
+  Size as PersistenceSize,
+  Photo as PersistencePhoto
 } from '@prisma/client'
 import Description from '../entities/Pet/Description'
 import Pet from '../entities/Pet/Pet'
@@ -12,7 +14,8 @@ import Specie from '../entities/Specie/Specie'
 
 type PersistenceProps = {
   pet: PersistencePet,
-  specie: SpeciePersistence
+  specie: PersistenceSpecie,
+  photos?: PersistencePhoto[]
 }
 
 export default class PetMapper {
@@ -20,6 +23,16 @@ export default class PetMapper {
     const sizeOrError = Size.create(raw.pet.size)
     const descriptionOrError = Description.create(raw.pet.description)
     const nameOrError = Name.create(raw.specie.name)
+    const photos = (
+      !raw.photos
+        ? undefined
+        : raw.photos.map(photo => Photo.create({
+          date: photo?.date,
+          name: photo?.name,
+          path: photo?.path,
+          size: Number(photo?.size)
+        }, photo?.id, photo?.created_at, photo?.updated_at))
+    )
 
     if (sizeOrError.isLeft()) {
       throw sizeOrError.value
@@ -48,7 +61,8 @@ export default class PetMapper {
       ownerId: raw.pet.owner_id,
       specie: specieOrError.value,
       size: sizeOrError.value,
-      adopted: raw.pet.adopted
+      adopted: raw.pet.adopted,
+      photos
     },
     raw.pet.id,
     raw.pet.created_at,

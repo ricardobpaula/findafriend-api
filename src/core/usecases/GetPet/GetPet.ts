@@ -4,6 +4,14 @@ type ShowPetRequest = {
   id: number
 }
 
+type PhotoResponse = {
+  id: number,
+  name: string,
+  path: string,
+  size: number,
+  date: Date
+}
+
 type ShowPetResponse = {
   id: number,
   description: string,
@@ -13,7 +21,8 @@ type ShowPetResponse = {
   specie: {
     id: number,
     name: string
-  }
+  },
+  photos?: PhotoResponse[]
 }
 
 export default class GetPet {
@@ -34,8 +43,14 @@ export default class GetPet {
       specie: {
         id: pet.props.specie.id,
         name: pet.props.specie.props.name.value
-      }
-
+      },
+      photos: pet.props?.photos?.map(photo => ({
+        id: photo.id,
+        name: photo.props.name,
+        path: photo.props.path,
+        size: photo.props.size,
+        date: photo.props.date
+      }))
     }
   }
 }

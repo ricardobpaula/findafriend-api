@@ -4,12 +4,22 @@ import Pet from '@core/entities/Pet/Pet'
 import PetMapper from '@core/mappers/PetMapper'
 import { FindPetsRequest } from '@core/usecases/FindPets/FindPets'
 import PetRepository from '../PetRepository'
+import PhotoMapper from '@core/mappers/PhotoMapper'
 
 export default class PetRepositoryPrisma implements PetRepository {
   async create (pet: Pet): Promise<void> {
     const data = PetMapper.toPersistence(pet.props)
-
-    await prisma.pet.create({ data })
+    const photos = pet.props.photos.map(photo => PhotoMapper.toPersistence(photo))
+    await prisma.pet.create({
+      data: {
+        size: data.size,
+        description: data.description,
+        owner_id: data.owner_id,
+        specie_id: data.specie_id,
+        adopted: data.adopted,
+        photos: { create: photos }
+      }
+    })
   }
 
   async find (params: FindPetsRequest): Promise<Pet[]> {
@@ -22,19 +32,23 @@ export default class PetRepositoryPrisma implements PetRepository {
         adopted: params?.adopted
       },
       include: {
-        specie: true
+        specie: true,
+        photos: true
       }
     })
 
-    return pets ? pets.map(pet => PetMapper.toDomain({ pet, specie: pet.specie })) : null
+    return pets ? pets.map(pet => PetMapper.toDomain({ pet, specie: pet.specie, photos: pet.photos })) : null
   }
 
   async findById (id: number): Promise<Pet> {
     const pet = await prisma.pet.findUnique({
       where: { id },
-      include: { specie: true }
+      include: {
+        specie: true,
+        photos: true
+      }
     })
 
-    return pet ? PetMapper.toDomain({ pet, specie: pet.specie }) : null
+    return pet ? PetMapper.toDomain({ pet, specie: pet.specie, photos: pet?.photos }) : null
   }
 }

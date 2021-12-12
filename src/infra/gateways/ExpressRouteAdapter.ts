@@ -10,7 +10,8 @@ const adaptExpressRoute = (controller: Controller) => {
       query: request.query,
       cookies: request.cookies,
       userId: Number(request.userId),
-      files: request.files
+      files: request.files,
+      fields: request.fields
     }
 
     const dataResponse = await controller.handle(dataRequest)

@@ -7,5 +7,6 @@ export default interface HttpRequest<T = any> {
   query?: any,
   cookies?: any,
   userId?: number,
-  files?: File[]
+  files?: File[],
+  fields?: any
 }

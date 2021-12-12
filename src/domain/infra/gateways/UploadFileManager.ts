@@ -6,6 +6,11 @@ export type File = {
   type: string
 }
 
+export type MultiPartParams = {
+  files: File[],
+  fields: any
+}
+
 export default interface UploadFileManager {
-  handle: (request: any)=> Promise<File|File[]>
+  handle: (request: any)=> Promise<MultiPartParams>
 }

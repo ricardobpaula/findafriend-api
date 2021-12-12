@@ -1,4 +1,4 @@
-import Controller from '@domain/'
+import Controller from '@domain/infra/gateways/Controller'
 import HttpRequest from '@domain/infra/gateways/HttpRequest'
 import HttpResponse, { errorHttp, successHttp } from '@domain/infra/gateways/HttpResponse'
 import CreatePet from './CreatePet'
@@ -15,13 +15,15 @@ export default class CreatePetController implements Controller {
       this.createPet = createPet
     }
 
-    async handle ({ body, userId }: HttpRequest<PetRequestBody>): Promise<HttpResponse> {
+    async handle ({ userId, files, fields }: HttpRequest): Promise<HttpResponse> {
       try {
+        const data = JSON.parse(fields.data) as PetRequestBody
         const petOrError = await this.createPet.execute({
-          description: body.description,
-          size: body.size,
-          specieId: body.specie,
-          ownerId: userId
+          description: data.description,
+          size: data.size,
+          specieId: data.specie,
+          ownerId: userId,
+          files
         })
         if (petOrError.isLeft()) {
           return errorHttp(400, petOrError.value)

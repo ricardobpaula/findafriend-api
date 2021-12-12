@@ -4,7 +4,8 @@ declare global {
   namespace Express {
     export interface Request {
       userId?: string,
-      files?: File[]
+      files?: File[],
+      fields?: any
     }
   }
 }

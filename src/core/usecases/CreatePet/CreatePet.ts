@@ -8,12 +8,15 @@ import UserNotFoundError from './errors/UserNotFoundError'
 import SpecieNotFoundError from './errors/SpecieNotFoundError'
 import Description from '@core/entities/Pet/Description'
 import Size from '@core/entities/Pet/Size'
+import { File } from '@domain/infra/gateways/UploadFileManager'
+import Photo from '@core/entities/Photo/Photo'
 
 type PetRequest = {
   description: string,
   ownerId: number,
   specieId: number,
-  size: string
+  size: string,
+  files: File[]
 }
 
 type PetResponse = Either<
@@ -52,12 +55,20 @@ export default class CreatePet {
         return left(sizeOrError.value)
       }
 
+      const photos = request.files.map(photo => Photo.create({
+        date: photo.date,
+        name: photo.name,
+        path: photo.path,
+        size: photo.size
+      }))
+
       const petOrError = Pet.create({
         description: descriptionOrError.value,
         ownerId: request.ownerId,
         size: sizeOrError.value,
         specie,
-        adopted: false
+        adopted: false,
+        photos
       })
 
       if (petOrError.isLeft()) {

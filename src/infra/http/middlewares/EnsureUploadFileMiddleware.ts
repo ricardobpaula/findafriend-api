@@ -10,8 +10,8 @@ export default class EnsureUploadFileMiddleware implements Middleware {
 
     async handle (request: any): Promise<HttpResponse> {
       try {
-        const files = await this.uploadFileManager.handle(request)
-        return successHttp(200, { files })
+        const params = await this.uploadFileManager.handle(request)
+        return successHttp(200, { files: params.files, fields: params.fields })
       } catch (error) {
         return errorHttp(500, error)
       }
