@@ -9,13 +9,20 @@ export type AuthRequest = {
   password: string
 }
 
+type Avatar = {
+  name: string,
+  path: string,
+  size: number,
+  date: Date
+}
+
 type UserResponse = {
     firstName: string,
     lastName: string,
     phone: string,
     email: string,
     isFinding: boolean,
-    avatar: string,
+    avatar: Avatar,
     role: string,
     since: Date
 }
@@ -58,10 +65,16 @@ export default class AuthUser {
         lastName: user.props.lastName,
         email: user.props.email.value,
         phone: user.props.phone.value,
-        avatar: user.props.avatar,
         isFinding: user.props.isFinding,
         role: user.props.role.value,
-        since: user.createdAt
+        since: user.createdAt,
+        avatar: {
+          id: user.props.avatar.id,
+          name: user.props.avatar.props.name,
+          date: user.props.avatar.props.date,
+          path: user.props.avatar.props.path,
+          size: user.props.avatar.props.size
+        }
       } as UserResponse
 
       return right({ user: userResponse, token })
