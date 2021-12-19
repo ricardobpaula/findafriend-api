@@ -59,7 +59,8 @@ export default class CreatePet {
         date: photo.date,
         name: photo.name,
         path: photo.path,
-        size: photo.size
+        size: photo.size,
+        originalName: photo.originalName
       }))
 
       const petOrError = Pet.create({

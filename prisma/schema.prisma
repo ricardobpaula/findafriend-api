@@ -64,15 +64,16 @@ model Pet {
 }
 
 model Photo {
-  id          Int       @id @default(autoincrement())
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  name        String
-  size        Decimal
-  path        String
-  date        DateTime
-  pet         Pet?      @relation(fields: [pet_id],references: [id])
-  pet_id      Int?
-  user        User?
+  id            Int       @id @default(autoincrement())
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  name          String
+  original_name String
+  size          Decimal
+  path          String
+  date          DateTime
+  pet           Pet?      @relation(fields: [pet_id],references: [id])
+  pet_id        Int?
+  user          User?
   @@map("photos")
 }

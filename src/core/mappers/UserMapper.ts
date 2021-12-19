@@ -24,6 +24,7 @@ export default class UserMapper {
         : Photo.create({
           date: raw.photo?.date,
           name: raw.photo?.name,
+          originalName: raw.photo?.original_name,
           path: raw.photo?.path,
           size: Number(raw.photo?.size)
         }, raw.photo?.id, raw.photo?.created_at, raw.photo?.updated_at)

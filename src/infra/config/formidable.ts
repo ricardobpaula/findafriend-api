@@ -2,7 +2,7 @@ import { Options } from 'formidable'
 import path from 'path'
 
 const config = {
-  uploadDir: path.resolve(__dirname, '..', '..', '..', 'tmp'),
+  uploadDir: path.normalize(path.resolve(__dirname, '..', '..', '..', 'tmp')),
   allowEmptyFiles: false,
   keepExtensions: true,
   multiples: true,

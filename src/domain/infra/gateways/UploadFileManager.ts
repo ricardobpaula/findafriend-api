@@ -1,4 +1,5 @@
 export type File = {
+  originalName: string,
   name: string,
   size: number,
   path: string,

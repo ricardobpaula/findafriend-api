@@ -7,6 +7,7 @@ type ShowPetRequest = {
 type PhotoResponse = {
   id: number,
   name: string,
+  originalName: string,
   path: string,
   size: number,
   date: Date
@@ -47,6 +48,7 @@ export default class GetPet {
       photos: pet.props?.photos?.map(photo => ({
         id: photo.id,
         name: photo.props.name,
+        originalName: photo.props.originalName,
         path: photo.props.path,
         size: photo.props.size,
         date: photo.props.date

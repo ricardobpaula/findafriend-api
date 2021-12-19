@@ -30,6 +30,7 @@ export default class PetMapper {
           date: photo?.date,
           name: photo?.name,
           path: photo?.path,
+          originalName: photo?.original_name,
           size: Number(photo?.size)
         }, photo?.id, photo?.created_at, photo?.updated_at))
     )

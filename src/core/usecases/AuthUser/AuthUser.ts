@@ -9,7 +9,9 @@ export type AuthRequest = {
   password: string
 }
 
-type Avatar = {
+type AvatarResponse = {
+  id: number,
+  originalName: string,
   name: string,
   path: string,
   size: number,
@@ -22,7 +24,7 @@ type UserResponse = {
     phone: string,
     email: string,
     isFinding: boolean,
-    avatar: Avatar,
+    avatar?: AvatarResponse,
     role: string,
     since: Date
 }
@@ -69,11 +71,12 @@ export default class AuthUser {
         role: user.props.role.value,
         since: user.createdAt,
         avatar: {
-          id: user.props.avatar.id,
-          name: user.props.avatar.props.name,
-          date: user.props.avatar.props.date,
-          path: user.props.avatar.props.path,
-          size: user.props.avatar.props.size
+          id: user.props?.avatar?.id,
+          name: user.props?.avatar?.props?.name,
+          originalName: user.props?.avatar?.props?.originalName,
+          date: user.props?.avatar?.props?.date,
+          path: user.props?.avatar?.props?.path,
+          size: user.props?.avatar?.props?.size
         }
       } as UserResponse
 

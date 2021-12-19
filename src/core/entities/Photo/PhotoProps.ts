@@ -3,4 +3,5 @@ export default interface PhotoProps {
   size: number,
   path: string,
   date: Date
+  originalName: string,
 }
