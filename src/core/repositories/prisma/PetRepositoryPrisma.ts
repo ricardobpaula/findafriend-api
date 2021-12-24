@@ -29,7 +29,8 @@ export default class PetRepositoryPrisma implements PetRepository {
       where: {
         specie_id: { in: params?.species },
         size: params?.size as Size,
-        adopted: params?.adopted
+        adopted: params?.adopted,
+        owner_id: params?.owner
       },
       include: {
         specie: true,

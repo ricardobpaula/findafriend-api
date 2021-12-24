@@ -19,6 +19,7 @@ type AvatarResponse = {
 }
 
 type UserResponse = {
+    id: number,
     firstName: string,
     lastName: string,
     phone: string,
@@ -63,6 +64,7 @@ export default class AuthUser {
       }
 
       const userResponse = {
+        id: user.id,
         firstName: user.props.firstName,
         lastName: user.props.lastName,
         email: user.props.email.value,

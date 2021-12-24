@@ -6,7 +6,8 @@ export type FindPetsRequest = {
   limit: number,
   species?: number[],
   size?: string,
-  adopted?: boolean
+  adopted?: boolean,
+  owner?: number
 }
 
 type PhotoResponse = {
@@ -23,6 +24,7 @@ type PetResponse = {
   description: string,
   size: string,
   adopted: boolean,
+  createdAt: Date,
   specie: {
     id: number,
     name: string
@@ -48,14 +50,16 @@ export default class FindPets {
         offset: params.offset,
         size: params?.size,
         species: params.species,
-        adopted: params?.adopted
+        adopted: params?.adopted,
+        owner: params?.owner
       })
     } else {
       pets = await this.petRepository.find({
         limit: params.limit,
         offset: params.offset,
         size: params?.size,
-        adopted: params?.adopted
+        adopted: params?.adopted,
+        owner: params?.owner
       })
     }
 
@@ -64,6 +68,7 @@ export default class FindPets {
       description: pet.props.description.value,
       size: pet.props.size.value,
       adopted: pet.props.adopted,
+      createdAt: pet.createdAt,
       specie: {
         id: pet.props.specie.id,
         name: pet.props.specie.props.name.value
