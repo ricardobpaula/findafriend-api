@@ -13,8 +13,8 @@ import Photo from '@core/entities/Photo/Photo'
 
 type PetRequest = {
   description: string,
-  ownerId: number,
-  specieId: number,
+  ownerId: string,
+  specieId: string,
   size: string,
   files: File[]
 }
@@ -76,8 +76,8 @@ export default class CreatePet {
         return left(petOrError.value)
       }
 
-      await this.petRepository.create(petOrError.value)
+      const pet = await this.petRepository.create(petOrError.value)
 
-      return right(petOrError.value)
+      return right(pet)
     }
 }

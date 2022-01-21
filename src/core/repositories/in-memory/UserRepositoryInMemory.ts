@@ -1,6 +1,9 @@
+import { v4 as uuid } from 'uuid'
+
 import PasswordFactory from '@core/factories/PasswordFactory'
 import User from '@core/entities/User/User'
 import UserRepository from '../UserRepository'
+import Photo from '@core/entities/Photo/Photo'
 
 export default class implements UserRepository {
     private items: Array<User>
@@ -9,8 +12,8 @@ export default class implements UserRepository {
       this.items = []
     }
 
-    async findById (id: number): Promise<User> {
-      return this.items[id - 1]
+    async findById (id: string): Promise<User> {
+      return this.items.find(item => item.id === id)
     }
 
     async findByEmail (email: string): Promise<User> {
@@ -44,7 +47,7 @@ export default class implements UserRepository {
         avatar,
         isFinding,
         role
-      }, this.items.length + 1)
+      }, uuid(), new Date(), new Date())
 
       if (userOrError.isLeft()) {
         throw userOrError.value
@@ -54,5 +57,17 @@ export default class implements UserRepository {
       this.items.push(newUser)
 
       return newUser
+    }
+
+    createAvatar (photo: Photo, userId: string): Promise<Photo> {
+      throw new Error('Method not implemented.')
+    }
+
+    updateAvatar (photo: Photo, userId: string): Promise<Photo> {
+      throw new Error('Method not implemented.')
+    }
+
+    findAvatarByOwner (userId: string): Promise<Photo> {
+      throw new Error('Method not implemented.')
     }
 }

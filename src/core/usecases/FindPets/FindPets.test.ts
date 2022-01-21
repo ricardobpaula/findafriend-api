@@ -8,10 +8,13 @@ import PetFactory from '@test/factories/PetFactory'
 import SpecieFactory from '@test/factories/SpecieFactory'
 import UserFactory from '@test/factories/UserFactory'
 import FindPets from './FindPets'
+import Specie from '@core/entities/Specie/Specie'
 
 let petRepositoryInMemory: PetRepository
 let userRepositoryInMemory: UserRepository
 let specieRepositoryInMemory: SpecieRepository
+let dog: Specie
+let cat: Specie
 
 const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
   'In sit amet dolor imperdiet, vulputate augue ut, varius odio.'
@@ -27,8 +30,8 @@ describe('Find all pets usecase', () => {
       petRepositoryInMemory,
       specieRepositoryInMemory)
     const owner = await userFactory.execute()
-    const dog = await specieFactory.execute('dog')
-    const cat = await specieFactory.execute('cat')
+    dog = await specieFactory.execute('dog')
+    cat = await specieFactory.execute('cat')
     await petFactory.execute({
       description,
       size: 'small',
@@ -69,7 +72,7 @@ describe('Find all pets usecase', () => {
 
   it('Should be received pet with specie equals dog', async () => {
     const findPets = new FindPets(petRepositoryInMemory)
-    const data = await findPets.execute({ limit: 5, offset: 0, species: [1] })
+    const data = await findPets.execute({ limit: 5, offset: 0, species: [dog.id] })
     expect(data.length > 0).toBeTruthy()
   })
 })

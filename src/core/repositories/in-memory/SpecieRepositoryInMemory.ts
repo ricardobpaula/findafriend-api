@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid'
 import Specie from '../../entities/Specie/Specie'
 import SpecieRepository from '../../repositories/SpecieRepository'
 
@@ -9,7 +10,7 @@ export default class SpecieRepositoryInMemory implements SpecieRepository {
     }
 
     async create (specie: Specie): Promise<Specie> {
-      const specieOrError = Specie.create(specie.props, this.items.length + 1)
+      const specieOrError = Specie.create(specie.props, uuid(), new Date(), new Date())
       if (specieOrError.isLeft()) {
         throw specieOrError.value
       }
@@ -17,7 +18,7 @@ export default class SpecieRepositoryInMemory implements SpecieRepository {
       return specieOrError.value
     }
 
-    async findByid (id: number): Promise<Specie> {
+    async findByid (id: string): Promise<Specie> {
       return this.items.find(item => item.id === id)
     }
 

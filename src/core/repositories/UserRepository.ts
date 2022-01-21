@@ -4,8 +4,8 @@ import User from '@core/entities/User/User'
 export default interface UserRepository {
     createUser(user: User): Promise<User>
     findByEmail(email:string): Promise<User>
-    findById(id: number): Promise<User>
-    createAvatar(photo: Photo, userId: number):Promise<Photo>
-    updateAvatar(photo: Photo, userId: number):Promise<Photo>
-    findAvatarByOwner(userId: number):Promise<Photo>
+    findById(id: string): Promise<User>
+    createAvatar(photo: Photo, userId: string):Promise<Photo>
+    updateAvatar(photo: Photo, userId: string):Promise<Photo>
+    findAvatarByOwner(userId: string):Promise<Photo>
 }

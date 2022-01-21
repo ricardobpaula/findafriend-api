@@ -15,7 +15,7 @@ export default class UserRepositoryPrisma implements UserRepository {
     return UserMapper.toDomain({ user: newUser })
   }
 
-  async findById (id: number): Promise<User> {
+  async findById (id: string): Promise<User> {
     const user = await prisma.user.findUnique({ where: { id }, include: { avatar: true } })
 
     return user ? UserMapper.toDomain({ user }) : null
@@ -26,13 +26,13 @@ export default class UserRepositoryPrisma implements UserRepository {
     return user ? UserMapper.toDomain({ user, photo: user.avatar }) : null
   }
 
-  async findAvatarByOwner (userId: number): Promise<Photo> {
+  async findAvatarByOwner (userId: string): Promise<Photo> {
     const user = await prisma.user.findUnique({ where: { id: userId }, include: { avatar: true } })
     const { avatar } = UserMapper.toDomain({ user, photo: user.avatar }).props
     return avatar
   }
 
-  async createAvatar (photo: Photo, userId: number): Promise<Photo> {
+  async createAvatar (photo: Photo, userId: string): Promise<Photo> {
     const data = PhotoMapper.toPersistence(photo)
     const user = await prisma.user.update({
       data: { avatar: { create: data } },
@@ -45,7 +45,7 @@ export default class UserRepositoryPrisma implements UserRepository {
     return avatar
   }
 
-  async updateAvatar (photo: Photo, userId: number): Promise<Photo> {
+  async updateAvatar (photo: Photo, userId: string): Promise<Photo> {
     const data = PhotoMapper.toPersistence(photo)
     const user = await prisma.user.update({
       data: { avatar: { update: data } },

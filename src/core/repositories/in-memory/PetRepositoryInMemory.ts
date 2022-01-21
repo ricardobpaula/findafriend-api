@@ -1,6 +1,9 @@
+import { v4 as uuid } from 'uuid'
+
 import { FindPetsRequest } from '@core/usecases/FindPets/FindPets'
 import Pet from '../../entities/Pet/Pet'
 import PetRepository from '../PetRepository'
+import Photo from '@core/entities/Photo/Photo'
 
 export default class PetRepositoryInMemory implements PetRepository {
   private items: Array<Pet>
@@ -9,12 +12,22 @@ export default class PetRepositoryInMemory implements PetRepository {
     this.items = []
   }
 
-  async create (pet: Pet): Promise<void> {
-    const petOrError = Pet.create(pet.props, this.items.length + 1)
+  async create (pet: Pet): Promise<Pet> {
+    const photos = pet.props.photos.map(photo => Photo.create(photo.props, uuid(), new Date(), new Date()))
+    const petOrError = Pet.create({
+      adopted: pet.props.adopted,
+      description: pet.props.description,
+      ownerId: pet.props.ownerId,
+      size: pet.props.size,
+      specie: pet.props.specie,
+      photos
+    }, uuid(), new Date(), new Date())
     if (petOrError.isLeft()) {
       throw petOrError.value
     }
     this.items.push(petOrError.value)
+
+    return petOrError.value
   }
 
   async find (params: FindPetsRequest): Promise<Pet[]> {
@@ -30,7 +43,7 @@ export default class PetRepositoryInMemory implements PetRepository {
     ).splice(params.offset, params.limit)
   }
 
-  async findById (id: number): Promise<Pet> {
-    return this.items[id - 1]
+  async findById (id: string): Promise<Pet> {
+    return this.items.find(item => item.id === id)
   }
 }

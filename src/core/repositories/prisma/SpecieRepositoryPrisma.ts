@@ -10,7 +10,7 @@ export default class SpecieRepositoryPrisma implements SpecieRepository {
     return SpecieMapper.toDomain(newSpecie)
   }
 
-  async findByid (id: number): Promise<Specie> {
+  async findByid (id: string): Promise<Specie> {
     const specie = await prisma.specie.findUnique({ where: { id } })
     return specie ? SpecieMapper.toDomain(specie) : null
   }

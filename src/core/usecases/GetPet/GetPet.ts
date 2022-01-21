@@ -1,11 +1,11 @@
 import PetRepository from '@core/repositories/PetRepository'
 
 type ShowPetRequest = {
-  id: number
+  id: string
 }
 
 type PhotoResponse = {
-  id: number,
+  id: string,
   name: string,
   originalName: string,
   path: string,
@@ -14,13 +14,13 @@ type PhotoResponse = {
 }
 
 type ShowPetResponse = {
-  id: number,
+  id: string,
   description: string,
   size: string,
   adopted: boolean,
-  ownerId: number,
+  ownerId: string,
   specie: {
-    id: number,
+    id: string,
     name: string
   },
   photos?: PhotoResponse[]

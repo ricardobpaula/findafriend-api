@@ -4,14 +4,14 @@ import PetRepository from '@core/repositories/PetRepository'
 export type FindPetsRequest = {
   offset: number,
   limit: number,
-  species?: number[],
+  species?: string[],
   size?: string,
   adopted?: boolean,
-  owner?: number
+  owner?: string
 }
 
 type PhotoResponse = {
-  id: number,
+  id: string,
   name: string,
   originalName: string,
   path: string,
@@ -20,13 +20,13 @@ type PhotoResponse = {
 }
 
 type PetResponse = {
-  id: number,
+  id: string,
   description: string,
   size: string,
   adopted: boolean,
   createdAt: Date,
   specie: {
-    id: number,
+    id: string,
     name: string
   },
   photos?: PhotoResponse[]

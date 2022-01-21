@@ -1,7 +1,7 @@
 import SpecieRepository from '@core/repositories/SpecieRepository'
 
 export type SpecieResponse = {
-  id: number,
+  id: string,
   name: string
 }
 type GetAllSpeciesResponse = SpecieResponse[]

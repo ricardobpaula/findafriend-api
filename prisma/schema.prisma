@@ -23,7 +23,7 @@ enum Size {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
+  id          String       @id @default(uuid())
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   first_name  String
@@ -35,12 +35,12 @@ model User {
   is_finding  Boolean   @default(true)
   pets        Pet[]
   avatar      Photo?     @relation(fields: [avatar_id],references: [id])
-  avatar_id   Int?
+  avatar_id   String?
   @@map("users")
 }
 
 model Specie {
-  id          Int       @id @default(autoincrement())
+  id          String       @id @default(uuid())
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   name        String    @unique
@@ -49,22 +49,22 @@ model Specie {
 }
 
 model Pet {
-  id          Int       @id @default(autoincrement())
+  id          String       @id @default(uuid())
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   description String
   adopted     Boolean   @default(false)
   size        Size      @default(undefined)
   owner       User      @relation(fields: [owner_id],references: [id])
-  owner_id    Int
+  owner_id    String
   specie      Specie    @relation(fields: [specie_id],references: [id])
-  specie_id   Int
+  specie_id   String
   photos      Photo[]
   @@map("pets")
 }
 
 model Photo {
-  id            Int       @id @default(autoincrement())
+  id            String       @id @default(uuid())
   created_at    DateTime  @default(now())
   updated_at    DateTime  @updatedAt
   name          String
@@ -73,7 +73,7 @@ model Photo {
   path          String
   date          DateTime
   pet           Pet?      @relation(fields: [pet_id],references: [id])
-  pet_id        Int?
+  pet_id        String?
   user          User?
   @@map("photos")
 }

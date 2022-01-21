@@ -7,7 +7,7 @@ import PetProps from './PetProps'
 export default class Pet extends Entity<PetProps> {
   private constructor (
     props: PetProps,
-    id?:number,
+    id?:string,
     createdAt?: Date,
     updatedAt?: Date
   ) {
@@ -16,7 +16,7 @@ export default class Pet extends Entity<PetProps> {
 
   static create (
     props: PetProps,
-    id?:number,
+    id?:string,
     createdAt?: Date,
     updatedAt?: Date): Either<InvalidDescriptionError | InvalidSizeError, Pet> {
     const pet = new Pet(props, id, createdAt, updatedAt)

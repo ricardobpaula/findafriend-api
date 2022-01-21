@@ -4,7 +4,7 @@ import PhotoProps from './PhotoProps'
 export default class Photo extends Entity<PhotoProps> {
   private constructor (
     props: PhotoProps,
-    id?: number,
+    id?: string,
     createdAt?: Date,
     updatedAt?:Date) {
     super(props, id, createdAt, updatedAt)
@@ -12,7 +12,7 @@ export default class Photo extends Entity<PhotoProps> {
 
   static create (
     props: PhotoProps,
-    id?: number,
+    id?: string,
     createdAt?: Date,
     updatedAt?:Date
   ): Photo {

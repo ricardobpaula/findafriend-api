@@ -7,10 +7,10 @@ import PetRepository from '../PetRepository'
 import PhotoMapper from '@core/mappers/PhotoMapper'
 
 export default class PetRepositoryPrisma implements PetRepository {
-  async create (pet: Pet): Promise<void> {
-    const data = PetMapper.toPersistence(pet.props)
-    const photos = pet.props.photos.map(photo => PhotoMapper.toPersistence(photo))
-    await prisma.pet.create({
+  async create (petData: Pet): Promise<Pet> {
+    const data = PetMapper.toPersistence(petData.props)
+    const photos = petData.props.photos.map(photo => PhotoMapper.toPersistence(photo))
+    const pet = await prisma.pet.create({
       data: {
         size: data.size,
         description: data.description,
@@ -18,8 +18,11 @@ export default class PetRepositoryPrisma implements PetRepository {
         specie_id: data.specie_id,
         adopted: data.adopted,
         photos: { create: photos }
-      }
+      },
+      include: { photos: true, specie: true }
     })
+
+    return PetMapper.toDomain({ pet, specie: pet.specie, photos: pet.photos })
   }
 
   async find (params: FindPetsRequest): Promise<Pet[]> {
@@ -41,7 +44,7 @@ export default class PetRepositoryPrisma implements PetRepository {
     return pets ? pets.map(pet => PetMapper.toDomain({ pet, specie: pet.specie, photos: pet.photos })) : null
   }
 
-  async findById (id: number): Promise<Pet> {
+  async findById (id: string): Promise<Pet> {
     const pet = await prisma.pet.findUnique({
       where: { id },
       include: {

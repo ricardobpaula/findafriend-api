@@ -4,7 +4,7 @@ import Photo from '@core/entities/Photo/Photo'
 
 export type UpdateAvatarRequest = {
     photo: File,
-    userId: number
+    userId: string
 }
 
 export default class UpdateAvatar {

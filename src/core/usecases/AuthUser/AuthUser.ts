@@ -10,7 +10,7 @@ export type AuthRequest = {
 }
 
 type AvatarResponse = {
-  id: number,
+  id: string,
   originalName: string,
   name: string,
   path: string,
@@ -19,7 +19,7 @@ type AvatarResponse = {
 }
 
 type UserResponse = {
-    id: number,
+    id: string,
     firstName: string,
     lastName: string,
     phone: string,

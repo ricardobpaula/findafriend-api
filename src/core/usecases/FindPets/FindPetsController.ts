@@ -16,8 +16,8 @@ export default class FindPetsController implements Controller {
       const offset = query.offset ? parseInt(query.offset) : 0
       const limit = query.limit ? parseInt(query.limit) : 5
       const adopted = query.adopted ? (query.adopted.toLowerCase() === 'true') : undefined
-      const owner = query.owner ? parseInt(query.owner) : undefined
-      const species = query?.species?.split(',').map((id:string) => (parseInt(id)))
+      const owner = query.owner ? query.owner : undefined
+      const species = query?.species?.split(',')
       const pets = await this.findPets.execute({
         offset,
         limit,

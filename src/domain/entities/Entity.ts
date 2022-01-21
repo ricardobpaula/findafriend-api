@@ -1,12 +1,12 @@
 export default abstract class Entity<T> {
-    public readonly id: number
+    public readonly id: string
     public readonly createdAt: Date
     public readonly updatedAt: Date
     public readonly props: T
 
     constructor (
       props: T,
-      id: number,
+      id: string,
       createdAt: Date,
       updatedAt: Date) {
       this.id = id

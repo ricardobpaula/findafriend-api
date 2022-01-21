@@ -6,7 +6,7 @@ import SpecieProps from './SpecieProps'
 export default class Specie extends Entity<SpecieProps> {
   private constructor (
     props: SpecieProps,
-    id?: number,
+    id?: string,
     createdAt?: Date,
     updatedAt?: Date) {
     super(props, id, createdAt, updatedAt)
@@ -14,7 +14,7 @@ export default class Specie extends Entity<SpecieProps> {
 
   static create (
     props: SpecieProps,
-    id?:number,
+    id?:string,
     createdAt?: Date,
     updatedAt?: Date
   ): Either<InvalidNameError, Specie> {

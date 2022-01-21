@@ -11,7 +11,7 @@ export default class GetPetController implements Controller {
 
   async handle ({ params }:HttpRequest):Promise<HttpResponse> {
     try {
-      const pet = await this.getPet.execute({ id: parseInt(params.id) })
+      const pet = await this.getPet.execute({ id: params.id })
       return successHttp(200, pet)
     } catch (error) {
       return errorHttp(500, error)

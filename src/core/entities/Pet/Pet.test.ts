@@ -5,16 +5,26 @@ import Specie from '../Specie/Specie'
 import Description from './Description'
 import Pet from './Pet'
 import Size from './Size'
+import UserFactory from '@test/factories/UserFactory'
+import UserRepository from '@core/repositories/UserRepository'
+import UserRepositoryInMemory from '@core/repositories/in-memory/UserRepositoryInMemory'
+import User from '../User/User'
 
 let specieRepository: SpecieRepository
 let specieFactory: SpecieFactory
+let userFactory: UserFactory
+let userRepository: UserRepository
 let dog: Specie
+let owner: User
 
 describe('Pet entity', () => {
   beforeEach(async () => {
     specieRepository = new SpecieRepositoryInMemory()
     specieFactory = new SpecieFactory(specieRepository)
+    userRepository = new UserRepositoryInMemory()
+    userFactory = new UserFactory(userRepository)
     dog = await specieFactory.execute('dog')
+    owner = await userFactory.execute()
   })
   it('should create a new pet', () => {
     const descriptionOrError = Description.create(
@@ -37,7 +47,7 @@ describe('Pet entity', () => {
     const petOrError = Pet.create({
       description: descriptionOrError.value,
       size: sizeOrError.value,
-      ownerId: 1,
+      ownerId: owner.id,
       specie: dog,
       adopted: false
     })

@@ -9,7 +9,7 @@ import UserProps from './UserProps'
 export default class User extends Entity<UserProps> {
   private constructor (
     props: UserProps,
-    id?: number,
+    id?: string,
     createdAt?: Date,
     updatedAt?: Date) {
     super(props, id, createdAt, updatedAt)
@@ -17,7 +17,7 @@ export default class User extends Entity<UserProps> {
 
   static create (
     props: UserProps,
-    id?: number,
+    id?: string,
     createdAt?: Date,
     updatedAt?: Date):
     Either<

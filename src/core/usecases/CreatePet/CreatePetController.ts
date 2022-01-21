@@ -5,7 +5,7 @@ import CreatePet from './CreatePet'
 
 type PetRequestBody = {
         description: string,
-        specie: number,
+        specie: string,
         size: string
     }
 

@@ -5,7 +5,7 @@ import Size from './Size'
 
 export default interface PetProps {
   description: Description
-  ownerId: number
+  ownerId: string
   specie: Specie
   size: Size
   adopted: boolean

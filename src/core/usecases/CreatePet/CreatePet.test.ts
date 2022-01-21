@@ -6,6 +6,7 @@ import Specie from '../../entities/Specie/Specie'
 import PetRepositoryInMemory from '../../repositories/in-memory/PetRepositoryInMemory'
 import SpecieRepositoryInMemory from '../../repositories/in-memory/SpecieRepositoryInMemory'
 import CreatePet from './CreatePet'
+import { File } from '@domain/infra/gateways/UploadFileManager'
 
 let userRepositoryInMemory: UserRepositoryInMemory
 let specieRepositoryInMemory: SpecieRepositoryInMemory
@@ -18,6 +19,15 @@ const description = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' 
   'In sit amet dolor imperdiet, vulputate augue ut, varius odio.'
 
 const size = 'small'
+
+const photo = {
+  date: new Date(),
+  name: 'default.png',
+  originalName: 'default.png',
+  path: '/home/user/images',
+  size: 1024,
+  type: 'image/png'
+} as File
 
 describe('Usecase to create a new pet', () => {
   beforeEach(async () => {
@@ -37,7 +47,8 @@ describe('Usecase to create a new pet', () => {
       ownerId: owner.id,
       specieId: specie.id,
       description,
-      size
+      size,
+      files: [photo]
     })
     expect(pet.isRight()).toBeTruthy()
   })
@@ -48,9 +59,10 @@ describe('Usecase to create a new pet', () => {
 
     const pet = await createPet.execute({
       ownerId: owner.id,
-      specieId: 0,
+      specieId: '26c58fc6-7726-11ec-90d6-0242ac120003',
       description,
-      size
+      size,
+      files: [photo]
     })
     expect(pet.isLeft()).toBeTruthy()
   })
