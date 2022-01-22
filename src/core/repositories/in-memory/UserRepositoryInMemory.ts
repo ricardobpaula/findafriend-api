@@ -59,15 +59,22 @@ export default class implements UserRepository {
       return newUser
     }
 
-    createAvatar (photo: Photo, userId: string): Promise<Photo> {
-      throw new Error('Method not implemented.')
+    async createAvatar (photo: Photo, userId: string): Promise<Photo> {
+      const avatar = Photo.create(photo.props, uuid(), new Date(), new Date())
+      const index = this.items.findIndex(item => item.id === userId)
+      this.items[index].props.avatar = avatar
+      return avatar
     }
 
-    updateAvatar (photo: Photo, userId: string): Promise<Photo> {
-      throw new Error('Method not implemented.')
+    async updateAvatar (photo: Photo, userId: string): Promise<Photo> {
+      const avatar = Photo.create(photo.props, uuid(), new Date(), new Date())
+      const index = this.items.findIndex(item => item.id === userId)
+      this.items[index].props.avatar = avatar
+      return avatar
     }
 
-    findAvatarByOwner (userId: string): Promise<Photo> {
-      throw new Error('Method not implemented.')
+    async findAvatarByOwner (userId: string): Promise<Photo> {
+      const user = this.items.find(item => item.id === userId)
+      return user.props.avatar
     }
 }

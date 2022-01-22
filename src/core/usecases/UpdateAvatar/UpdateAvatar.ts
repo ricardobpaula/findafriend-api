@@ -14,7 +14,7 @@ export default class UpdateAvatar {
       this.userRepository = userRepository
     }
 
-    async execute ({ photo, userId }: UpdateAvatarRequest) {
+    async execute ({ photo, userId }: UpdateAvatarRequest): Promise<Photo> {
       const avatarExists = await this.userRepository.findAvatarByOwner(userId)
       if (avatarExists) {
         const avatar = Photo.create(
@@ -23,10 +23,10 @@ export default class UpdateAvatar {
           avatarExists.createdAt,
           avatarExists.updatedAt
         )
-        await this.userRepository.updateAvatar(avatar, userId)
+        return await this.userRepository.updateAvatar(avatar, userId)
       } else {
         const avatar = Photo.create(photo)
-        await this.userRepository.createAvatar(avatar, userId)
+        return await this.userRepository.createAvatar(avatar, userId)
       }
     }
 }
