@@ -12,7 +12,9 @@ export default class RefreshTokenRepositoryInMemory implements RefreshTokenRepos
     }
 
     async create (user: User): Promise<RefreshToken> {
-      const refreshToken = RefreshToken.create({ user }, uuid(), new Date(), new Date())
+      const expiresIn = new Date()
+      expiresIn.setMonth(expiresIn.getMonth() + 1)
+      const refreshToken = RefreshToken.create({ user, expiresIn }, uuid(), new Date(), new Date())
       this.items.push(refreshToken)
       return refreshToken
     }

@@ -12,7 +12,9 @@ describe('Refresh Token Entity', () => {
     user = await userFactory.execute()
   })
   it('Should be created a new Refresh Token', () => {
-    const refreshToken = RefreshToken.create({ user })
+    const expiresIn = new Date()
+    expiresIn.setMonth(expiresIn.getMonth() + 1)
+    const refreshToken = RefreshToken.create({ user, expiresIn })
     expect(!!refreshToken).toBeTruthy()
   })
 })
