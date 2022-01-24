@@ -24,6 +24,11 @@ export default class RefreshTokenRepositoryInMemory implements RefreshTokenRepos
       this.items.splice(index)
     }
 
+    async findById (id: string): Promise<RefreshToken> {
+      const refreshToken = this.items.find(item => item.id === id)
+      return refreshToken
+    }
+
     async find (user: User): Promise<RefreshToken> {
       const refreshToken = this.items.find(item => item.props.user === user)
       return refreshToken
