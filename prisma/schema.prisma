@@ -23,19 +23,20 @@ enum Size {
 }
 
 model User {
-  id          String       @id @default(uuid())
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  first_name  String
-  last_name   String
-  phone       String    @db.Char(11)
-  email       String    @unique
-  password    String
-  role        Role      @default(common)
-  is_finding  Boolean   @default(true)
-  pets        Pet[]
-  avatar      Photo?     @relation(fields: [avatar_id],references: [id])
-  avatar_id   String?
+  id            String       @id @default(uuid())
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  first_name    String
+  last_name     String
+  phone         String    @db.Char(11)
+  email         String    @unique
+  password      String
+  role          Role      @default(common)
+  is_finding    Boolean   @default(true)
+  pets          Pet[]
+  avatar        Photo?     @relation(fields: [avatar_id],references: [id])
+  avatar_id     String?
+  refreshToken  RefreshToken?
   @@map("users")
 }
 
@@ -76,4 +77,14 @@ model Photo {
   pet_id        String?
   user          User?
   @@map("photos")
+}
+
+model RefreshToken {
+  id            String    @id @default(uuid())
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
+  expires_in    DateTime
+  user          User?     @relation(fields: [user_id], references: [id])
+  user_id       String?
+  @@map("refresh_token")
 }

@@ -1,3 +1,4 @@
+import RefreshTokenRepository from '@core/repositories/RefreshTokenRepository'
 import AccessToken from '@domain/infra/gateways/AccessToken'
 import { Either, left, right } from '@domain/logic/Either'
 import UserRepository from '../../repositories/UserRepository'
@@ -32,17 +33,23 @@ type UserResponse = {
 
 type TokenResponse = {
   user: UserResponse,
-  token: string
+  token: string,
+  refreshToken: string
 }
 
-type AuthReponse = Either< EmailOrPasswordIncorrect | AccessTokenError, TokenResponse>
+export type AuthReponse = Either< EmailOrPasswordIncorrect | AccessTokenError, TokenResponse>
 
 export default class AuthUser {
     private readonly userRepository: UserRepository
+    private readonly refreshTokenRepository: RefreshTokenRepository
     private readonly AccessToken: AccessToken
 
-    constructor (userRepository: UserRepository, AccessToken: AccessToken) {
+    constructor (
+      userRepository: UserRepository,
+      refreshTokenRepository: RefreshTokenRepository,
+      AccessToken: AccessToken) {
       this.userRepository = userRepository
+      this.refreshTokenRepository = refreshTokenRepository
       this.AccessToken = AccessToken
     }
 
@@ -63,6 +70,14 @@ export default class AuthUser {
         return left(new AccessTokenError())
       }
 
+      const alreadyRefreshToken = await this.refreshTokenRepository.find(user)
+
+      if (alreadyRefreshToken) {
+        await this.refreshTokenRepository.delete(alreadyRefreshToken)
+      }
+
+      const refreshToken = await this.refreshTokenRepository.create(user)
+
       const userResponse = {
         id: user.id,
         firstName: user.props.firstName,
@@ -82,6 +97,6 @@ export default class AuthUser {
         }
       } as UserResponse
 
-      return right({ user: userResponse, token })
+      return right({ user: userResponse, token, refreshToken: refreshToken.id })
     }
 }
