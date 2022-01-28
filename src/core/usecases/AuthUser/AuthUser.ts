@@ -33,8 +33,10 @@ type UserResponse = {
 
 type TokenResponse = {
   user: UserResponse,
-  token: string,
-  refreshToken: string
+  refreshToken: {
+    id: string,
+    expiresIn: Date
+  }
 }
 
 export type AuthReponse = Either< EmailOrPasswordIncorrect | AccessTokenError, TokenResponse>
@@ -97,6 +99,13 @@ export default class AuthUser {
         }
       } as UserResponse
 
-      return right({ user: userResponse, token, refreshToken: refreshToken.id })
+      return right({
+        user: userResponse,
+        token,
+        refreshToken: {
+          id: refreshToken.id,
+          expiresIn: refreshToken.props.expiresIn
+        }
+      })
     }
 }

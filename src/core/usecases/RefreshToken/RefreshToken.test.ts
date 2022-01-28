@@ -29,7 +29,7 @@ describe('Refresh token', () => {
 
   it('Should be refresh token', async () => {
     if (auth.isRight()) {
-      const newToken = await refreshToken.execute({ token: auth.value.refreshToken })
+      const newToken = await refreshToken.execute({ token: auth.value.refreshToken.id })
       expect(newToken.isRight()).toBeTruthy()
     }
   })

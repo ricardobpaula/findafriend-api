@@ -9,7 +9,10 @@ type RefreshTokenRequest = {
 
 type RefreshTokenResponse = {
     token: string,
-    refreshToken: string
+    refreshToken: {
+      id: string,
+      expiresIn: Date
+    }
 }
 
 type Response = Either<InvalidRefreshToken, RefreshTokenResponse>
@@ -38,7 +41,10 @@ export default class RefreshToken {
     const newRefreshToken = await this.refreshTokenRepository.create(refreshToken.props.user)
 
     return right({
-      refreshToken: newRefreshToken.id,
+      refreshToken: {
+        id: newRefreshToken.id,
+        expiresIn: newRefreshToken.props.expiresIn
+      },
       token: newToken
     })
   }

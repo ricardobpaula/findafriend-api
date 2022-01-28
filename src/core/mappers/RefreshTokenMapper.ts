@@ -10,7 +10,7 @@ type Raw = {
 export default class RefreshTokenMapper {
   static toDomain (raw: Raw): RefreshToken {
     const refreshToken = RefreshToken.create(
-      { user: raw.user },
+      { user: raw.user, expiresIn: raw.refreshToken.expires_in },
       raw.refreshToken.id,
       raw.refreshToken.created_at,
       raw.refreshToken.updated_at
