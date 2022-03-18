@@ -9,7 +9,7 @@ const adaptExpressRoute = (controller: Controller) => {
       params: request.params,
       query: request.query,
       cookies: request.cookies,
-      userId: Number(request.userId),
+      userId: request.userId,
       files: request.files,
       fields: request.fields
     }

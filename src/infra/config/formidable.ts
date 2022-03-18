@@ -6,7 +6,7 @@ const config = {
   allowEmptyFiles: false,
   keepExtensions: true,
   multiples: true,
-  maxFileSize: 2 * 1024 * 1024
+  maxFileSize: 20 * 1024 * 1024
 } as Options
 
 export default config
