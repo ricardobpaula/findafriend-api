@@ -22,7 +22,8 @@
         "no-useless-constructor": "off",
         "no-new": "off",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": ["warn"]
+        "@typescript-eslint/no-unused-vars": ["warn"],
+        "camelcase": "off"
     },
     "root": true
 }

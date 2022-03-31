@@ -24,7 +24,10 @@ type UserResponse = {
     since: Date
 }
 
-type ViewProfileResponse = UserResponse
+type ViewProfileResponse = {
+  user: UserResponse
+  avatar: AvatarResponse
+}
 
 export default class ViewProfile {
   private readonly userRepository: UserRepository
@@ -34,18 +37,19 @@ export default class ViewProfile {
 
   async execute ({ userId }: ViewProfileRequest): Promise<ViewProfileResponse> {
     const user = await this.userRepository.findById(userId)
-    console.log(user)
     const { email, firstName, lastName, phone, avatar, isFinding, role } = user.props
 
     return {
-      id: user.id,
-      email: email.value,
-      firstName,
-      isFinding,
-      lastName,
-      phone: phone.value,
-      role: role.value,
-      since: user.createdAt,
+      user: {
+        id: user.id,
+        email: email.value,
+        firstName,
+        isFinding,
+        lastName,
+        phone: phone.value,
+        role: role.value,
+        since: user.createdAt
+      },
       avatar: {
         id: avatar?.id,
         date: avatar?.props?.date,

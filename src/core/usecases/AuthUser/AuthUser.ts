@@ -26,13 +26,13 @@ type UserResponse = {
     phone: string,
     email: string,
     isFinding: boolean,
-    avatar?: AvatarResponse,
     role: string,
     since: Date
 }
 
 type TokenResponse = {
   user: UserResponse,
+  avatar?: AvatarResponse,
   refreshToken: {
     id: string,
     expiresIn: Date
@@ -88,20 +88,22 @@ export default class AuthUser {
         phone: user.props.phone.value,
         isFinding: user.props.isFinding,
         role: user.props.role.value,
-        since: user.createdAt,
-        avatar: {
-          id: user.props?.avatar?.id,
-          name: user.props?.avatar?.props?.name,
-          originalName: user.props?.avatar?.props?.originalName,
-          date: user.props?.avatar?.props?.date,
-          path: user.props?.avatar?.props?.path,
-          size: user.props?.avatar?.props?.size
-        }
+        since: user.createdAt
       } as UserResponse
+
+      const avatar = {
+        id: user.props?.avatar?.id,
+        name: user.props?.avatar?.props?.name,
+        originalName: user.props?.avatar?.props?.originalName,
+        date: user.props?.avatar?.props?.date,
+        path: user.props?.avatar?.props?.path,
+        size: user.props?.avatar?.props?.size
+      } as AvatarResponse
 
       return right({
         user: userResponse,
         token,
+        avatar,
         refreshToken: {
           id: refreshToken.id,
           expiresIn: refreshToken.props.expiresIn

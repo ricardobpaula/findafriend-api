@@ -15,10 +15,26 @@ export default class UserRepositoryPrisma implements UserRepository {
     return UserMapper.toDomain({ user: newUser })
   }
 
+  async updateUser (user: User): Promise<User> {
+    const {
+      first_name,
+      last_name,
+      email,
+      phone
+    } = await UserMapper.toPersistence(user.props)
+
+    const userUpdated = await prisma.user.update({
+      data: { first_name, last_name, email, phone },
+      where: { id: user.id }
+    })
+
+    return UserMapper.toDomain({ user: userUpdated })
+  }
+
   async findById (id: string): Promise<User> {
     const user = await prisma.user.findUnique({ where: { id }, include: { avatar: true } })
 
-    return user ? UserMapper.toDomain({ user }) : null
+    return user ? UserMapper.toDomain({ user, photo: user.avatar }) : null
   }
 
   async findByEmail (email: string): Promise<User|undefined> {

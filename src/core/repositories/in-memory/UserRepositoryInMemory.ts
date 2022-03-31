@@ -59,6 +59,25 @@ export default class implements UserRepository {
       return newUser
     }
 
+    async updateUser (user: User): Promise<User> {
+      const index = this.items.findIndex(item => item.id === user.id)
+      const { firstName, lastName, email, phone } = user.props
+      const { id, createdAt, updatedAt, props } = this.items[index]
+      const userUpdated = User.create({
+        ...props,
+        firstName,
+        lastName,
+        phone,
+        email
+      }, id, createdAt, updatedAt)
+
+      if (userUpdated.isLeft()) {
+        throw userUpdated.value
+      }
+      this.items[index] = userUpdated.value
+      return this.items[index]
+    }
+
     async createAvatar (photo: Photo, userId: string): Promise<Photo> {
       const avatar = Photo.create(photo.props, uuid(), new Date(), new Date())
       const index = this.items.findIndex(item => item.id === userId)

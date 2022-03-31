@@ -9,7 +9,7 @@ export default interface UserProps {
     lastName: string
     phone: Phone
     email: Email
-    password: Password
+    password?: Password
     isFinding?: boolean
     avatar?: Photo
     role?: Role

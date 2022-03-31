@@ -16,8 +16,16 @@ export default class UserMapper {
   static toDomain (raw: PersistenceProps): User {
     const phoneOrError = Phone.create(raw.user.phone)
     const emailOrError = Email.create(raw.user.email)
-    const passwordOrError = PasswordFactory(raw.user.password, true)
-    const roleOrError = Role.create(raw.user.role)
+    const passwordOrError = (
+      !raw.user.password
+        ? undefined
+        : PasswordFactory(raw.user.password, true)
+    )
+    const roleOrError = (
+      !raw.user.role
+        ? undefined
+        : Role.create(raw.user.role)
+    )
     const avatar = (
       !raw.photo
         ? undefined
