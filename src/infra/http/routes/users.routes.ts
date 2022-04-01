@@ -9,6 +9,7 @@ import makeUpdateAvatarController from '../factories/accounts/UpdateAvatarContro
 import makeEnsureAuthenticatedMiddleware from '../factories/middlewares/EnsureAuthenticatedMiddlewareFactory'
 import makeEnsureUploadFileMiddleware from '../factories/middlewares/EnsureUploadFileFactory'
 import makeViewProfileController from '../factories/accounts/ViewProfileControllerFactory'
+import makeUpdateUserController from '../factories/accounts/UpdateUserControllerFactory'
 
 const routes = Router()
 
@@ -21,6 +22,7 @@ routes.post('/avatar',
   adaptExpressRoute(makeUpdateAvatarController())
 )
 
+routes.put('/', adaptExpressRoute(makeUpdateUserController()))
 routes.get('/me', adaptExpressRoute(makeViewProfileController()))
 
 export default routes

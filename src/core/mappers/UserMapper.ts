@@ -79,7 +79,7 @@ export default class UserMapper {
       email: user.email.value,
       first_name: user.firstName,
       last_name: user.lastName,
-      password: await user.password.getHashed(),
+      password: await user?.password?.getHashed(),
       phone: user.phone.value,
       avatar: user?.avatar,
       is_finding: user?.isFinding,

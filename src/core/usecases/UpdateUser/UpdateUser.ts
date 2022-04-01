@@ -7,12 +7,12 @@ import UserRepository from '@core/repositories/UserRepository'
 import { Either, left, right } from '@domain/logic/Either'
 import EmailAlreadyUsed from '../CreateUser/errors/EmailAlreadyUsed'
 
-type UserRequest = {
+export type UserRequest = {
   userId: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
 }
 
 type UserResponse = Either<
@@ -29,16 +29,16 @@ export default class UpdateUser {
     this.userRepository = userRepository
   }
 
-  async execute (request: UserRequest):Promise<UserResponse> {
-    const userAlreadyExists = await this.userRepository.findByEmail(request.email)
-    const user = await this.userRepository.findById(request.userId)
+  async execute ({ firstName, lastName, email, phone, userId }: UserRequest):Promise<UserResponse> {
+    const userAlreadyExists = await this.userRepository.findByEmail(email || '')
+    const user = await this.userRepository.findById(userId)
 
-    if (userAlreadyExists && request.email !== user.props.email.value) {
-      return left(new EmailAlreadyUsed(request.email))
+    if (userAlreadyExists && email !== user.props.email.value) {
+      return left(new EmailAlreadyUsed(email))
     }
 
-    const emailOrError = Email.create(request.email)
-    const phoneOrError = Phone.create(request.phone)
+    const emailOrError = Email.create(email || user.props.email.value)
+    const phoneOrError = Phone.create(phone || user.props.phone.value)
 
     if (emailOrError.isLeft()) {
       return left(emailOrError.value)
@@ -48,11 +48,11 @@ export default class UpdateUser {
       return left(phoneOrError.value)
     }
     const userPersistence = User.create({
-      firstName: request.firstName,
-      lastName: request.lastName,
+      firstName: firstName || user.props.firstName,
+      lastName: lastName || user.props.lastName,
       email: emailOrError.value,
       phone: phoneOrError.value
-    }, request.userId)
+    }, userId)
 
     if (userPersistence.isLeft()) {
       return left(userPersistence.value)
